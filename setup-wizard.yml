@@ -1,0 +1,20 @@
+version: "2"
+fields:
+  - id: keystore
+    target:
+      type: fileUpload
+      path: /opt/web3signer/keyfiles_tmp/
+      service: web3signer
+    title: File keystore
+    description: >-
+      Provide the keystore of your validator in JSON format, its name must not be duplicated
+    required: true
+  - id: keystorePassword
+    target:
+      type: fileUpload
+      path: /opt/web3signer/keyfiles_tmp/
+      service: web3signer
+    title: Keystore password
+    description: >-
+      Provide the keystore password in txt format
+    required: true

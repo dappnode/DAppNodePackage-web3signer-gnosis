@@ -1,0 +1,29 @@
+version: "3.5"
+services:
+  web3signer:
+    image: "web3signer.web3signer.dnp.dappnode.eth:0.1.0"
+    build:
+      context: web3signer
+      args:
+        KEYFILES_DIR: /opt/web3signer/keyfiles # Path used for storing keyfiles
+        KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp # Path used for storing keyfiles from fileUpload before they are moved to KEYFILES_DIR
+    environment:
+      KEYFILES_DIR: /opt/web3signer/keyfiles
+      KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
+    ports:
+      - "9003:9000"
+    restart: unless-stopped
+  postgres:
+    build:
+      context: postgres
+    image: "postgres.web3signer.dnp.dappnode.eth:0.1.0"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: web3signer
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+volumes:
+  web3signer: {}
+  postgres: {}
