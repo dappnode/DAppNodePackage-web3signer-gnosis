@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # Detect new keystores and password from KEYFILES_DIR_TMP and move them to KEYFILES_DIR
-# following naming convention: keystore<number>.json
+# following naming convention:
+#   - keystore:  keystore<x>.json     
+#   - password:  password<xyz..>.txt  (each number represents a keystore)
+
+# It also creates the corresponding validator_X.yml file with the keystores and password paths
 
 # Log vars
 INFO="\e[0;34m[INFO] "
@@ -9,14 +13,20 @@ WARNING="\e[0;33m [WARN] "
 ERROR="\e[0;31m [ERROR] "
 END_LOG="\e[0m"
 
-# VARS
-#KEYFILES_DIR_TMP="/home/dappnode/test/tmp"
-#KEYFILES_DIR="/home/dappnode/test/keyfiles"
+########
+# VARS #
+########
+#KEYFILES_DIR_TMP="/opt/web3signer/keyfiles_tmp"    => Declare in compose
+#KEYFILES_DIR="/opt/web3signer/keyfiles"            => Declare in compose
 KEYSTORE_FILES_TMP=$(ls $KEYFILES_DIR_TMP/*.json)
 KEYSTORE_FILES=$(ls $KEYFILES_DIR/*.json)
 KEYSTORE_PASSWORD_FILE_TMP=$(ls $KEYFILES_DIR_TMP/*.txt)
 PASSWORD_FILE_NAME="password_"
 ARRAY_NEW_KEYSTORES=()
+
+#############
+# FUNCTIONS #
+#############
 
 # Check requirements
 function check_requirements() {
