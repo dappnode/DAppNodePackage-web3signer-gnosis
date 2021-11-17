@@ -16,6 +16,9 @@ END_LOG="\e[0m"
 ########
 # VARS #
 ########
+KEYFILES_DIR_TMP="/home/dappnode/test/tmp"
+KEYFILES_DIR="/home/dappnode/test/keyfiles"
+
 #KEYFILES_DIR_TMP="/opt/web3signer/keyfiles_tmp"    => Declare in compose
 #KEYFILES_DIR="/opt/web3signer/keyfiles"            => Declare in compose
 KEYSTORE_FILES_TMP=$(ls $KEYFILES_DIR_TMP/*.json)
@@ -46,14 +49,18 @@ function move_keys_files() {
     KEY_FILE_NAME="keystore_${counter}.json"
 
     for KEY_FILE_TMP in $KEYSTORE_FILES_TMP; do
-        # Move new KEY_FILE_TMP and look for an available name  
-        # Check if file content is same with cmp??
-        # while 
+        # Get available keystore file name 
         while [ -f ${KEYFILES_DIR}/${KEY_FILE_NAME} ]; do
             ((counter+=1))
             KEY_FILE_NAME="keystore_${counter}.json"
         done
 
+        # Check keystore file content is not duplicated with cmp
+        for KEY_FILE in $KEYSTORE_FILES; do
+            cmp -s $KEY_FILE_TMP $KEY_FILE && { echo -e "${ERROR} keystore file ${KEY_FILE_TMP} content is duplicated ${END_LOG}"; exit 1;}
+        done
+
+        # Move keystore file with available name
         if [ ! -f ${KEYFILES_DIR}/${KEY_FILE_NAME} ]; then
             echo -e "${INFO} moving ${KEY_FILE_TMP} ${END_LOG}"
             mv ${KEY_FILE_TMP} ${KEYFILES_DIR}/${KEY_FILE_NAME} || { echo -e "${ERROR} failed to move ${KEY_FILE_TMP} to ${KEYFILES_DIR} ${END_LOG}"; exit 1;}
