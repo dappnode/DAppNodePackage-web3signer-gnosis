@@ -5,8 +5,8 @@ services:
     build:
       context: web3signer
       args:
-        KEYFILES_DIR: /opt/web3signer/keyfiles # Path used for storing keyfiles
-        KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp # Path used for storing keyfiles from fileUpload before they are moved to KEYFILES_DIR
+        KEYFILES_DIR: /opt/web3signer/keyfiles
+        KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
     environment:
       KEYFILES_DIR: /opt/web3signer/keyfiles
       KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp

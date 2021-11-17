@@ -9,7 +9,7 @@
 
 # Log vars
 INFO="\e[0;34m[INFO] "
-WARNING="\e[0;33m [WARN] "
+WARN="\e[0;33m [WARN] "
 ERROR="\e[0;31m [ERROR] "
 END_LOG="\e[0m"
 
@@ -36,7 +36,7 @@ function check_requirements() {
 
 # Create validator file
 function create_validator_file() {
-    echo -e "${INFO} creating validator file ${END_LOG}"
+    echo -e "${INFO} creating validator file number ${1} ${END_LOG}"
     printf 'type: "file-keystore"\nkeyType: "BLS"\nkeystoreFile: "%s"\nkeystorePasswordFile: "%s"\n' "${KEYFILES_DIR}/keystore_${1}.json" "${KEYFILES_DIR}/${PASSWORD_FILE_NAME}.txt" >> validator_${1}.yml
 }
 
@@ -54,7 +54,7 @@ function move_keys_files() {
 
         # Check keystore file content is not duplicated with cmp
         for KEY_FILE in $KEYSTORE_FILES; do
-            cmp -s $KEY_FILE_TMP $KEY_FILE && { echo -e "${ERROR} keystore file ${KEY_FILE_TMP} content is duplicated ${END_LOG}"; exit 1;}
+            cmp -s $KEY_FILE_TMP $KEY_FILE && { echo -e "${ERROR} keystore file ${KEY_FILE_TMP} content is duplicated in ${KEY_FILE} ${END_LOG}"; exit 1;}
         done
 
         # Move keystore file with available name
@@ -80,10 +80,11 @@ if [ -z "$KEYSTORE_FILES_TMP" ]; then
     # Skip if no new files found in tmp dir
     echo -e "${INFO} no new keystore files found in ${KEYFILES_DIR_TMP} ${END_LOG}"
 else
-    # Move new files if found in tmp dir and create the validator_x.yml file
+    # Move new files if found in tmp dir
     echo -e "${INFO} moving keystore files from ${KEYFILES_DIR_TMP} to ${KEYFILES_DIR} ${END_LOG}"
     move_keys_files
 
+    # Create the validator_x.yml files
     for KEY_INDEX in ${ARRAY_NEW_KEYSTORES[@]}; do
         create_validator_file $KEY_INDEX
     done
