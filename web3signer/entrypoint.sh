@@ -16,9 +16,6 @@ END_LOG="\e[0m"
 ########
 # VARS #
 ########
-KEYFILES_DIR_TMP="/home/dappnode/test/tmp"
-KEYFILES_DIR="/home/dappnode/test/keyfiles"
-
 #KEYFILES_DIR_TMP="/opt/web3signer/keyfiles_tmp"    => Declare in compose
 #KEYFILES_DIR="/opt/web3signer/keyfiles"            => Declare in compose
 KEYSTORE_FILES_TMP=$(ls $KEYFILES_DIR_TMP/*.json)
