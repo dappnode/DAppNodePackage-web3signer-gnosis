@@ -37,7 +37,7 @@ function check_requirements() {
 # Create validator file
 function create_validator_file() {
     echo -e "${INFO} creating validator file number ${1} ${END_LOG}"
-    printf 'type: "file-keystore"\nkeyType: "BLS"\nkeystoreFile: "%s"\nkeystorePasswordFile: "%s"\n' "${KEYFILES_DIR}/keystore_${1}.json" "${KEYFILES_DIR}/${PASSWORD_FILE_NAME}.txt" >> "${KEYFILES_DIR}/validator_${1}.yml"
+    printf 'type: "file-keystore"\nkeyType: "BLS"\nkeystoreFile: "%s"\nkeystorePasswordFile: "%s"\n' "${KEYFILES_DIR}/keystore_${1}.json" "${KEYFILES_DIR}/${PASSWORD_FILE_NAME}.txt" >> "${KEYFILES_DIR}/validator_${1}.yaml"
 }
 
 # Moves keystore files from KEYFILES_DIR_TMP to KEYFILES_DIR
