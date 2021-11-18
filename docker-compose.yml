@@ -12,6 +12,9 @@ services:
       KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
     ports:
       - "9003:9000"
+    volumes:
+      - "web3signer_keyfiles:/opt/web3signer/keyfiles"
+      - "web3signer_keyfiles_tmp:/opt/web3signer/keyfiles_tmp"
     restart: unless-stopped
   postgres:
     build:
@@ -25,5 +28,6 @@ services:
       - "5432:5432"
     restart: unless-stopped
 volumes:
-  web3signer: {}
+  web3signer_keyfiles: {}
+  web3signer_keyfiles_tmp: {}
   postgres: {}
