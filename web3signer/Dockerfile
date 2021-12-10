@@ -1,4 +1,9 @@
-FROM consensys/web3signer:develop
+ARG UPSTREAM_VERSION
+
+##############
+# WEB3SIGNER #
+##############
+FROM consensys/web3signer:$UPSTREAM_VERSION
 
 ARG KEYFILES_DIR
 ARG KEYFILES_DIR_TMP
