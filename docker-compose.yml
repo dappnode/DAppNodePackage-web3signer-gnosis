@@ -7,6 +7,7 @@ services:
       args:
         KEYFILES_DIR: /opt/web3signer/keyfiles
         KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
+        UPSTREAM_VERSION: 21.10.0
     environment:
       KEYFILES_DIR: /opt/web3signer/keyfiles
       KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
@@ -19,15 +20,24 @@ services:
   postgres:
     build:
       context: postgres
+      args:
+        UPSTREAM_VERSION: 21.10.0
     image: "postgres.web3signer.dnp.dappnode.eth:0.1.0"
+    env_file:
+      - ./postgres/.env.postgres
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
       POSTGRES_DB: web3signer
+    user: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+      - "postgres_migrations:/docker-entrypoint-initdb.d"
     restart: unless-stopped
 volumes:
   web3signer_keyfiles: {}
   web3signer_keyfiles_tmp: {}
-  postgres: {}
+  postgres_data: {}
+  postgres_migrations: {}
