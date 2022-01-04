@@ -7,7 +7,7 @@ services:
       args:
         KEYFILES_DIR: /opt/web3signer/keyfiles
         KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
-        UPSTREAM_VERSION: 21.10.0
+        UPSTREAM_VERSION: 21.10.5
     environment:
       KEYFILES_DIR: /opt/web3signer/keyfiles
       KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
@@ -21,7 +21,7 @@ services:
     build:
       context: postgres
       args:
-        UPSTREAM_VERSION: 21.10.0
+        UPSTREAM_VERSION: 21.10.5
     image: "postgres.web3signer.dnp.dappnode.eth:0.1.0"
     env_file:
       - ./postgres/.env.postgres
