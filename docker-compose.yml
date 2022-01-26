@@ -1,5 +1,11 @@
 version: "3.5"
 services:
+  ui:
+    image: "ui.web3signer.dnp.dappnode.eth:0.1.0"
+    build:
+      context: ui
+    restart: unless-stopped
+
   web3signer:
     image: "web3signer.web3signer.dnp.dappnode.eth:0.1.0"
     build:
