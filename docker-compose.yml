@@ -5,17 +5,12 @@ services:
     build:
       context: web3signer
       args:
-        KEYFILES_DIR: /opt/web3signer/keyfiles
-        KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
         UPSTREAM_VERSION: 21.10.5
-    environment:
-      KEYFILES_DIR: /opt/web3signer/keyfiles
-      KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
     ports:
       - "9003:9000"
     volumes:
-      - "web3signer_keyfiles:/opt/web3signer/keyfiles"
-      - "web3signer_keyfiles_tmp:/opt/web3signer/keyfiles_tmp"
+      # IMPORTANT! Volume cannot be explicity the path defined at --key-store-path, otherwise there will be permission issues
+      - "web3signer_data:/opt/web3signer"
     restart: unless-stopped
   postgres:
     build:
@@ -37,7 +32,6 @@ services:
       - "postgres_migrations:/docker-entrypoint-initdb.d"
     restart: unless-stopped
 volumes:
-  web3signer_keyfiles: {}
-  web3signer_keyfiles_tmp: {}
+  web3signer_data: {}
   postgres_data: {}
   postgres_migrations: {}
