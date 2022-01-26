@@ -5,6 +5,8 @@ services:
     build:
       context: ui
     restart: unless-stopped
+    ports:
+      - "3000"
 
   web3signer:
     image: "web3signer.web3signer.dnp.dappnode.eth:0.1.0"
@@ -13,7 +15,7 @@ services:
       args:
         UPSTREAM_VERSION: 21.10.5
     ports:
-      - "9003:9000"
+      - "9000"
     volumes:
       # IMPORTANT! Volume cannot be explicity the path defined at --key-store-path, otherwise there will be permission issues
       - "web3signer_data:/opt/web3signer"
@@ -32,7 +34,7 @@ services:
       POSTGRES_DB: web3signer
     user: postgres
     ports:
-      - "5432:5432"
+      - "5432"
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
       - "postgres_migrations:/docker-entrypoint-initdb.d"

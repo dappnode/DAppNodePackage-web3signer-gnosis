@@ -15,12 +15,10 @@ RUN git fetch origin && git checkout -b keymanager origin/keymanager && ./gradle
 ##############
 # WEB3SIGNER #
 ##############
-FROM consensys/web3signer:$UPSTREAM_VERSION
 
+FROM consensys/web3signer:$UPSTREAM_VERSION
 # Copy web3signer keymanager binary
 COPY --from=builder /usr/src/app/web3signer/web3signer-develop /opt/web3signer
-
-EXPOSE 9003
-
 COPY entrypoint.sh /usr/bin/entrypoint.sh
+EXPOSE 9000
 ENTRYPOINT /bin/bash /usr/bin/entrypoint.sh

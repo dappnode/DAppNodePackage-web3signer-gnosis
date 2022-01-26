@@ -21,7 +21,7 @@
     "url": "https://github.com/ConsenSys/web3signer/issues"
   },
   "links": {
-    "ui": "http://web3signer.dappnode:9003/",
+    "ui": "http://ui.web3signer-prater.dappnode:3000?signer_url=http://web3signer.web3signer-prater.dappnode:9000",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
     "readme": "https://github.com/ConsenSys/web3signer/blob/master/README.md"
   },
