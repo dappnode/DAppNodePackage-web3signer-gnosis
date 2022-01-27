@@ -1,21 +1,24 @@
 version: "3.5"
 services:
+  ui:
+    image: "ui.web3signer.dnp.dappnode.eth:0.1.0"
+    build:
+      context: ui
+    restart: unless-stopped
+    ports:
+      - "3000"
+
   web3signer:
     image: "web3signer.web3signer.dnp.dappnode.eth:0.1.0"
     build:
       context: web3signer
       args:
-        KEYFILES_DIR: /opt/web3signer/keyfiles
-        KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
         UPSTREAM_VERSION: 21.10.5
-    environment:
-      KEYFILES_DIR: /opt/web3signer/keyfiles
-      KEYFILES_DIR_TMP: /opt/web3signer/keyfiles_tmp
     ports:
-      - "9003:9000"
+      - "9000"
     volumes:
-      - "web3signer_keyfiles:/opt/web3signer/keyfiles"
-      - "web3signer_keyfiles_tmp:/opt/web3signer/keyfiles_tmp"
+      # IMPORTANT! Volume cannot be explicity the path defined at --key-store-path, otherwise there will be permission issues
+      - "web3signer_data:/opt/web3signer"
     restart: unless-stopped
   postgres:
     build:
@@ -31,13 +34,12 @@ services:
       POSTGRES_DB: web3signer
     user: postgres
     ports:
-      - "5432:5432"
+      - "5432"
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
       - "postgres_migrations:/docker-entrypoint-initdb.d"
     restart: unless-stopped
 volumes:
-  web3signer_keyfiles: {}
-  web3signer_keyfiles_tmp: {}
+  web3signer_data: {}
   postgres_data: {}
   postgres_migrations: {}
