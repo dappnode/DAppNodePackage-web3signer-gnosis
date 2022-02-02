@@ -1,5 +1,5 @@
 {
-  "name": "web3signer.dnp.dappnode.eth",
+  "name": "web3signer-prater.dnp.dappnode.eth",
   "version": "0.1.0",
   "upstreamVersion": "21.10.5",
   "architectures": ["linux/amd64"],
@@ -21,7 +21,7 @@
     "url": "https://github.com/ConsenSys/web3signer/issues"
   },
   "links": {
-    "ui": "http://ui.web3signer-prater.dappnode:3000?signer_url=http://web3signer.web3signer-prater.dappnode:9000",
+    "ui": "http://ui.web3signer-prater.dappnode.eth?signer_url=http://web3signer.web3signer-prater.dappnode:9000",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
     "readme": "https://github.com/ConsenSys/web3signer/blob/master/README.md"
   },

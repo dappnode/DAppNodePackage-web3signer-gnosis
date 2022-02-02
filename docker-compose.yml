@@ -1,13 +1,12 @@
 version: "3.5"
 services:
   ui:
-    image: "ui.web3signer.dnp.dappnode.eth:0.1.0"
+    image: "ui.web3signer-prater.dnp.dappnode.eth:0.1.0"
     build:
       context: ui
     restart: unless-stopped
-
   web3signer:
-    image: "web3signer.web3signer.dnp.dappnode.eth:0.1.0"
+    image: "web3signer.web3signer-prater.dnp.dappnode.eth:0.1.0"
     build:
       context: web3signer
       args:
@@ -23,7 +22,7 @@ services:
       context: postgres
       args:
         UPSTREAM_VERSION: 21.10.5
-    image: "postgres.web3signer.dnp.dappnode.eth:0.1.0"
+    image: "postgres.web3signer-prater.dnp.dappnode.eth:0.1.0"
     env_file:
       - ./postgres/.env.postgres
     environment:
