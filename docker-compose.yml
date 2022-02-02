@@ -5,8 +5,6 @@ services:
     build:
       context: ui
     restart: unless-stopped
-    ports:
-      - "3000"
 
   web3signer:
     image: "web3signer.web3signer.dnp.dappnode.eth:0.1.0"

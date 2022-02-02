@@ -4,5 +4,7 @@ RUN apk update && apk add git && git clone https://github.com/joaquim-verges/eth
 WORKDIR /app/eth2-keymanager-frontend
 RUN yarn
 RUN yarn run build
-EXPOSE 3000
-CMD ["yarn", "start"]
+
+FROM nginx:1.21.6-alpine 
+COPY --from=build /app/eth2-keymanager-frontend/build/ /usr/share/nginx/html/
+EXPOSE 80
