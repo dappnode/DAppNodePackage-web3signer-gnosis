@@ -8,9 +8,9 @@ ARG UPSTREAM_VERSION
 
 FROM openjdk:11 as builder
 WORKDIR /usr/src/app
-RUN apt update && apt install git -y && git clone https://github.com/joaquim-verges/web3signer.git 
+RUN apt update && apt install git -y && git clone https://github.com/ConsenSys/web3signer.git
 WORKDIR /usr/src/app/web3signer 
-RUN git fetch origin && git checkout -b keymanager origin/keymanager && ./gradlew clean assemble && tar -xzf ./build/distributions/web3signer-develop.tar.gz
+RUN git fetch origin && ./gradlew clean assemble && tar -xzf ./build/distributions/web3signer-develop.tar.gz
 
 ##############
 # WEB3SIGNER #
