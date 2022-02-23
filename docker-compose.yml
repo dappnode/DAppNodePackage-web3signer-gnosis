@@ -11,10 +11,10 @@ services:
       context: web3signer
       args:
         UPSTREAM_VERSION: 21.10.5
-    ports:
-      - "9000"
+    env:
+      KEYFILES_DIR: /opt/web3signer/keyfiles
+      SIGNER_PORT: 9000
     volumes:
-      # IMPORTANT! Volume cannot be explicity the path defined at --key-store-path, otherwise there will be permission issues
       - "web3signer_data:/opt/web3signer"
     restart: unless-stopped
   postgres:
@@ -30,8 +30,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: web3signer
     user: postgres
-    ports:
-      - "5432"
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
       - "postgres_migrations:/docker-entrypoint-initdb.d"
