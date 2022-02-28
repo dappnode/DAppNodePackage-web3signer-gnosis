@@ -25,5 +25,8 @@
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
     "readme": "https://github.com/ConsenSys/web3signer/blob/master/README.md"
   },
-  "license": "GLP-3.0"
+  "license": "GLP-3.0",
+  "requirements": {
+    "minimumDappnodeVersion": "0.2.52"
+  }
 }
