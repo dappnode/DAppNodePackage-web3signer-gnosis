@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
   web3signer:
     image: "web3signer.web3signer-prater.dnp.dappnode.eth:0.1.0"
+    depends_on:
+      - postgres
     build:
       context: web3signer
       args:
@@ -18,11 +20,16 @@ services:
       - "web3signer_data:/opt/web3signer"
     restart: unless-stopped
   postgres:
+    image: "postgres.web3signer-prater.dnp.dappnode.eth:0.1.0"
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 5s
+      timeout: 5s
+      retries: 5
     build:
       context: postgres
       args:
         UPSTREAM_VERSION: 21.10.5
-    image: "postgres.web3signer-prater.dnp.dappnode.eth:0.1.0"
     env_file:
       - ./postgres/.env.postgres
     environment:
