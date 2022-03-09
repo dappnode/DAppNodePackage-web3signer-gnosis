@@ -1,6 +1,6 @@
 FROM node:14-alpine3.14 as build
 WORKDIR /app
-RUN apk update && apk add git && git clone https://github.com/joaquim-verges/eth2-keymanager-frontend.git
+RUN apk update && apk add git && git clone https://github.com/dappnode/eth2-keymanager-frontend.git
 WORKDIR /app/eth2-keymanager-frontend
 RUN npm install --globally react-scripts
 RUN yarn
