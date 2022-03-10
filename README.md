@@ -4,7 +4,7 @@
 
 <!--DAppNode package logo (could be added with an hyperlink to a youtube video): -->
 
-[![](node-avatar.png)]
+![](node-avatar.png)
 
 <!--Brief introduction about the source project (official project definition is an option): -->
 
