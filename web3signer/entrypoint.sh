@@ -23,7 +23,8 @@ case "$ETH2_CLIENT" in
     ETH2_CLIENT="*"
     ;;
   *)
-    echo "ETH2_CLIENT env is not set propertly" && exit 1
+    echo "ETH2_CLIENT env is not set propertly"
+    ETH2_CLIENT="none"
     ;;
 esac
     
