@@ -5,19 +5,19 @@
 [ -z "$SIGNER_PORT" ] && echo "SIGNER_PORT env is not set" && exit 1
 [ -z "$ETH2_CLIENT" ] && echo "ETH2_CLIENT env is not set" && exit 1
 
-# Assign proper value to ETH2_CLIENT
+# Assign proper value to ETH2_CLIENT. The UI uses the web3signer domain in the Header "Host"
 case "$ETH2_CLIENT" in
   "prysm")
-    ETH2_CLIENT="validator.prysm-prater.dappnode"
+    ETH2_CLIENT="web3signer.web3signer-prater.dappnode,validator.prysm-prater.dappnode"
     ;;
   "teku")
-    ETH2_CLIENT="teku-prater.dappnode" # !IMPORTANT: there is only one container in teku
+    ETH2_CLIENT="web3signer.web3signer-prater.dappnode,teku-prater.dappnode" # !IMPORTANT: there is only one container in teku
     ;;
   "lighthouse")
-    ETH2_CLIENT="validator.lighthouse-prater.dappnode"
+    ETH2_CLIENT="web3signer.web3signer-prater.dappnode,validator.lighthouse-prater.dappnode"
     ;;
   "nimbus")
-    ETH2_CLIENT="validator.nimbus-prater.dappnode"
+    ETH2_CLIENT="web3signer.web3signer-prater.dappnode,validator.nimbus-prater.dappnode"
     ;;
   "all")
     ETH2_CLIENT="*"
@@ -44,4 +44,5 @@ exec /opt/web3signer/bin/web3signer \
     --slashing-protection-db-url=jdbc:postgresql://postgres:5432/web3signer \
     --slashing-protection-db-username=postgres \
     --slashing-protection-db-password=password \
-    --key-manager-api-enabled=true
+    --key-manager-api-enabled=true \
+    ${EXTRA_OPTS}
