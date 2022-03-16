@@ -18,6 +18,7 @@ services:
     environment:
       KEYFILES_DIR: /opt/web3signer/keyfiles
       SIGNER_PORT: 9000
+      ETH2_CLIENT: null
     volumes:
       - "web3signer_data:/opt/web3signer"
     restart: unless-stopped

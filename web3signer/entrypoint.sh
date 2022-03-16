@@ -3,7 +3,7 @@
 # Check envs exist
 [ -z "$KEYFILES_DIR" ] && echo "KEYFILES_DIR env is not set" && exit 1
 [ -z "$SIGNER_PORT" ] && echo "SIGNER_PORT env is not set" && exit 1
-[ -z "$ETH2_CLIENT" ] && echo "SIGNER_PORT env is not set" && exit 1
+[ -z "$ETH2_CLIENT" ] && echo "ETH2_CLIENT env is not set" && exit 1
 
 # Assign proper value to ETH2_CLIENT
 case "$ETH2_CLIENT" in

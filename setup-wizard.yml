@@ -1,6 +1,6 @@
 version: "2"
 fields:
-  - id: eth2Client,
+  - id: eth2Client
     target:
       type: environment
       name: ETH2_CLIENT
