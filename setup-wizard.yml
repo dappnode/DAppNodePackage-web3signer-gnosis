@@ -10,8 +10,8 @@ fields:
       Select the Eth2 client you want the web3signer listen requests from.
       You can change this parameter in the future
     enum:
-      - all
       - prysm
+      - all
       - teku
       - lighthouse
       - nimbus

@@ -8,16 +8,16 @@
 # Assign proper value to ETH2_CLIENT
 case "$ETH2_CLIENT" in
   "prysm")
-    ETH2_CLIENT="validator.prysm-prater-dappnode"
+    ETH2_CLIENT="validator.prysm-prater.dappnode"
     ;;
   "teku")
     ETH2_CLIENT="teku-prater.dappnode" # !IMPORTANT: there is only one container in teku
     ;;
   "lighthouse")
-    ETH2_CLIENT="validator.lighthouse-prater-dappnode"
+    ETH2_CLIENT="validator.lighthouse-prater.dappnode"
     ;;
   "nimbus")
-    ETH2_CLIENT="validator.nimbus-prater-dappnode"
+    ETH2_CLIENT="validator.nimbus-prater.dappnode"
     ;;
   "all")
     ETH2_CLIENT="*"
