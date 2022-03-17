@@ -11,7 +11,7 @@ case "$ETH2_CLIENT" in
     ETH2_CLIENT="web3signer.web3signer-prater.dappnode,validator.prysm-prater.dappnode"
     ;;
   "teku")
-    ETH2_CLIENT="web3signer.web3signer-prater.dappnode,teku-prater.dappnode" # !IMPORTANT: there is only one container in teku
+    ETH2_CLIENT="web3signer.web3signer-prater.dappnode,validator.teku-prater.dappnode"
     ;;
   "lighthouse")
     ETH2_CLIENT="web3signer.web3signer-prater.dappnode,validator.lighthouse-prater.dappnode"
