@@ -45,4 +45,8 @@ exec /opt/web3signer/bin/web3signer \
     --slashing-protection-db-username=postgres \
     --slashing-protection-db-password=password \
     --key-manager-api-enabled=true \
+    --metrics-enabled \
+    --metrics-host 0.0.0.0 \
+    --metrics-port 9091 \
+    --metrics-host-allowlist "*" \
     ${EXTRA_OPTS}
