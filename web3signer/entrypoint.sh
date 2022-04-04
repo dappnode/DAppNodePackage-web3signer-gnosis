@@ -39,14 +39,14 @@ exec /opt/web3signer/bin/web3signer \
     --http-listen-host=0.0.0.0 \
     --http-host-allowlist="$ETH2_CLIENT" \
     --http-cors-origins=* \
+    --metrics-enabled=true \
+    --metrics-host 0.0.0.0 \
+    --metrics-port 9091 \
+    --metrics-host-allowlist="*" \
     eth2 \
     --network=prater \
     --slashing-protection-db-url=jdbc:postgresql://postgres:5432/web3signer \
     --slashing-protection-db-username=postgres \
     --slashing-protection-db-password=password \
     --key-manager-api-enabled=true \
-    --metrics-enabled \
-    --metrics-host 0.0.0.0 \
-    --metrics-port 9091 \
-    --metrics-host-allowlist "*" \
     ${EXTRA_OPTS}

@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_PROMETHEUS",
+      "name": "Prometheus",
       "label": "Prometheus",
       "description": "",
       "type": "datasource",
@@ -64,7 +64,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -76,7 +76,7 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -103,9 +103,7 @@
       "options": {
         "colorMode": "value",
         "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
+          "calcs": ["mean"],
           "defaults": {
             "mappings": [],
             "thresholds": {
@@ -125,9 +123,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
+          "calcs": ["mean"],
           "fields": "",
           "values": false
         },
@@ -136,7 +132,7 @@
       "pluginVersion": "6.7.2",
       "targets": [
         {
-          "expr": "signing_signers_loaded_count{instance=~\"$system\"}",
+          "expr": "signing_signers_loaded_count{instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -149,7 +145,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "The maximum heap setting of the node's JVM.",
       "fieldConfig": {
         "defaults": {
@@ -180,9 +176,7 @@
       "options": {
         "colorMode": "value",
         "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
+          "calcs": ["mean"],
           "defaults": {
             "mappings": [],
             "thresholds": {
@@ -203,9 +197,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": true
         },
@@ -214,7 +206,7 @@
       "pluginVersion": "6.7.2",
       "targets": [
         {
-          "expr": "jvm_memory_bytes_max{area=\"heap\", instance=~\"$system\"}",
+          "expr": "jvm_memory_bytes_max{area=\"heap\", instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -229,7 +221,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -243,7 +235,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -282,9 +274,7 @@
       "options": {
         "displayMode": "basic",
         "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
+          "calcs": ["mean"],
           "defaults": {
             "mappings": [],
             "thresholds": {
@@ -306,9 +296,7 @@
         },
         "orientation": "vertical",
         "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
+          "calcs": ["mean"],
           "fields": "",
           "values": false
         },
@@ -317,7 +305,7 @@
       "pluginVersion": "6.7.2",
       "targets": [
         {
-          "expr": "signing_bls_signing_duration{instance=~\"$system\"}",
+          "expr": "signing_bls_signing_duration{instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -337,7 +325,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -382,7 +370,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(signing_bls_signing_duration_count{instance=~\"$system\"}[1m]))",
+          "expr": "sum(rate(signing_bls_signing_duration_count{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m]))",
           "instant": false,
           "interval": "",
           "legendFormat": "sigs/s",
@@ -436,7 +424,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -494,7 +482,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(eth2_slashingprotection_prevented_signings{instance=~\"$system\"}[1m])",
+          "expr": "rate(eth2_slashingprotection_prevented_signings{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -548,7 +536,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -592,7 +580,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(signing_bls_missing_identifier_count{instance=~\"$system\"}[1m])",
+          "expr": "rate(signing_bls_missing_identifier_count{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -644,7 +632,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -702,7 +690,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(http_bls_malformed_request_count{instance=~\"$system\"}[1m])",
+          "expr": "rate(http_bls_malformed_request_count{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -752,7 +740,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -769,7 +757,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "decimals": 2,
       "description": "Number of CPU cores in use.",
       "fieldConfig": {
@@ -819,7 +807,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(process_cpu_seconds_total{instance=~\"$system\"}[1m])",
+          "expr": "irate(process_cpu_seconds_total{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 3,
@@ -873,7 +861,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "decimals": 2,
       "description": "Total amount of heap memory in use, and the amount allocated.",
       "fieldConfig": {
@@ -930,7 +918,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "jvm_memory_bytes_used{instance=~\"$system\", area=\"heap\"} + ignoring(area) jvm_memory_bytes_used{instance=~\"$system\", area=\"nonheap\"}",
+          "expr": "jvm_memory_bytes_used{instance=\"web3signer.web3signer-prater.dappnode:9091\", area=\"heap\"} + ignoring(area) jvm_memory_bytes_used{instance=\"web3signer.web3signer-prater.dappnode:9091\", area=\"nonheap\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -939,7 +927,7 @@
           "refId": "A"
         },
         {
-          "expr": "jvm_memory_bytes_max{instance=~\"$system\", area=\"heap\"} + ignoring(area) jvm_memory_bytes_max{instance=~\"$system\", area=\"nonheap\"}",
+          "expr": "jvm_memory_bytes_max{instance=\"web3signer.web3signer-prater.dappnode:9091\", area=\"heap\"} + ignoring(area) jvm_memory_bytes_max{instance=\"web3signer.web3signer-prater.dappnode:9091\", area=\"nonheap\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -994,7 +982,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "decimals": 3,
       "description": "The total system memory used by the process, otherwise known as the resident set size (RSS).",
       "fieldConfig": {
@@ -1043,7 +1031,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "process_resident_memory_bytes{instance=~\"$system\"}",
+          "expr": "process_resident_memory_bytes{instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1098,7 +1086,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "description": "Percentage of time spent in garbage collection, young and old generation.",
       "fieldConfig": {
         "defaults": {
@@ -1150,7 +1138,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(jvm_gc_collection_seconds_sum{instance=~\"$system\"}[1m])",
+          "expr": "rate(jvm_gc_collection_seconds_sum{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1207,7 +1195,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "decimals": 0,
       "description": "Threads allocated by the JVM.",
       "fieldConfig": {
@@ -1262,7 +1250,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "jvm_threads_state{state=\"WAITING\",instance=~\"$system\"}",
+          "expr": "jvm_threads_state{state=\"WAITING\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1272,7 +1260,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"TIMED_WAITING\",instance=~\"$system\"}",
+          "expr": "jvm_threads_state{state=\"TIMED_WAITING\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1282,7 +1270,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"RUNNABLE\",instance=~\"$system\"}",
+          "expr": "jvm_threads_state{state=\"RUNNABLE\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1292,7 +1280,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"BLOCKED\",instance=~\"$system\"}",
+          "expr": "jvm_threads_state{state=\"BLOCKED\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1302,7 +1290,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"NEW\",instance=~\"$system\"}",
+          "expr": "jvm_threads_state{state=\"NEW\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1312,7 +1300,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"TERMINATED\",instance=~\"$system\"}",
+          "expr": "jvm_threads_state{state=\"TERMINATED\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1368,17 +1356,13 @@
   "refresh": "5s",
   "schemaVersion": 22,
   "style": "dark",
-  "tags": [
-    "ethereum",
-    "web3signer",
-    "eth2.0"
-  ],
+  "tags": ["ethereum", "web3signer", "eth2.0"],
   "templating": {
     "list": [
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": null,
         "definition": "signing_signers_loaded_count",
         "error": null,
         "hide": 0,
@@ -1406,17 +1390,7 @@
     "to": "now"
   },
   "timepicker": {
-    "refresh_intervals": [
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ]
+    "refresh_intervals": ["10s", "30s", "1m", "5m", "15m", "30m", "1h", "2h", "1d"]
   },
   "timezone": "",
   "title": "Web3Signer Eth2 Overview",
