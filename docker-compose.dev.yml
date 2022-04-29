@@ -15,8 +15,10 @@ services:
       args:
         UPSTREAM_VERSION: 21.10.6
     environment:
-      KEYFILES_DIR: /opt/web3signer/keyfiles
       SIGNER_PORT: 9000
+      ETH2_CLIENT: prysm
+      LOG_TYPE: INFO
+      EXTRA_OPTS: ""
     volumes:
       - "web3signer_data:/opt/web3signer"
     restart: unless-stopped

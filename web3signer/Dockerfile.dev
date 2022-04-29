@@ -15,6 +15,8 @@ RUN git fetch origin && ./gradlew clean assemble && tar -xzf ./build/distributio
 ##############
 
 FROM consensys/web3signer:$UPSTREAM_VERSION
+RUN apt update && apt install cron jq ca-certificates --yes
+COPY /security /security
 # Copy web3signer keymanager binary
 COPY --from=builder /usr/src/app/web3signer/web3signer-develop /opt/web3signer
 COPY entrypoint.sh /usr/bin/entrypoint.sh
