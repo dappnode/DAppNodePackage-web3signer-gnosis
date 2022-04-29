@@ -13,7 +13,7 @@ services:
       context: web3signer
       dockerfile: Dockerfile.dev
       args:
-        UPSTREAM_VERSION: 22.4.0
+        UPSTREAM_VERSION: 22.4.1
     environment:
       KEYFILES_DIR: /opt/web3signer/keyfiles
       SIGNER_PORT: 9000
@@ -33,7 +33,7 @@ services:
       context: postgres
       dockerfile: Dockerfile.dev
       args:
-        UPSTREAM_VERSION: 22.4.0
+        UPSTREAM_VERSION: 22.4.1
     env_file:
       - ./postgres/.env.postgres
     environment:
