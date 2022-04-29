@@ -6,16 +6,16 @@
 function log {
   case $1 in
   debug)
-    [[ $LOG_LEVEL -le 0 ]] && echo "[ DEBUG-cron ] ${2}"
+    [[ $LOG_LEVEL -le 0 ]] && echo "[ DEBUG ] ${2}"
     ;;
   info)
-    [[ $LOG_LEVEL -le 1 ]] && echo "[ INFO-cron ] ${2}"
+    [[ $LOG_LEVEL -le 1 ]] && echo "[ INFO ] ${2}"
     ;;
   warn)
-    [[ $LOG_LEVEL -le 2 ]] && echo "[ WARN-cron ] ${2}"
+    [[ $LOG_LEVEL -le 2 ]] && echo "[ WARN ] ${2}"
     ;;
   error)
-    [[ $LOG_LEVEL -le 3 ]] && echo "[ ERROR-cron ] ${2}"
+    [[ $LOG_LEVEL -le 3 ]] && echo "[ ERROR ] ${2}"
     ;;
   esac
 }
@@ -209,7 +209,7 @@ function read_token_file() {
 # MAIN #
 ########
 
-log debug "starting cronjob"
+log debug "change detected, starting"
 
 get_beacon_status # IS_BEACON_SYNCING
 log debug "beacon node syncing status: ${IS_BEACON_SYNCING}"
@@ -237,5 +237,5 @@ log debug "client public keys: ${CLIENT_PUBKEYS[*]}"
 log debug "comparing public keys"
 compare_public_keys
 
-log debug "finished cronjob"
+log debug "finished"
 exit 0

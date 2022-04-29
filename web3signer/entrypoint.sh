@@ -1,7 +1,6 @@
 #!/bin/bash
 
-SIGNER_PORT=9000
-KEYFILES_DIR="/opt/web3signer/keyfiles"
+export KEYFILES_DIR="/opt/web3signer/keyfiles"
 export NETWORK="prater"
 export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:${SIGNER_PORT}"
 
@@ -11,25 +10,25 @@ case "$ETH2_CLIENT" in
   ETH2_CLIENT_DNS="validator.prysm-prater.dappnode"
   export BEACON_NODE_API="http://beacon-chain.prysm-prater.dappnode:3500"
   export CLIENT_API="http://validator.prysm-prater.dappnode:3500"
-  export "${TOKEN_FILE}"="/security/prysm/auth-token"
+  export TOKEN_FILE="/security/prysm/auth-token"
   ;;
 "teku")
   ETH2_CLIENT_DNS="validator.teku-prater.dappnode"
   export BEACON_NODE_API="http://beacon-chain.teku-prater.dappnode:3500"
   export CLIENT_API="https://validator.teku-prater.dappnode:3500"
-  export "${TOKEN_FILE}"="/security/teku/validator-api-bearer"
+  export TOKEN_FILE="/security/teku/validator-api-bearer"
   ;;
 "lighthouse")
   ETH2_CLIENT_DNS="validator.lighthouse-prater.dappnode"
   export BEACON_NODE_API="http://beacon-chain.lighthouse-prater.dappnode:3500"
   export CLIENT_API="http://validator.lighthouse-prater.dappnode:3500"
-  export "${TOKEN_FILE}"="/security/lighthouse/auth-token"
+  export TOKEN_FILE="/security/lighthouse/auth-token"
   ;;
 "nimbus")
   ETH2_CLIENT_DNS="beacon-validator.nimbus-prater.dappnode"
   export BEACON_NODE_API="http://beacon-validator.nimbus-prater.dappnode:4500"
   export CLIENT_API="http://beacon-validator.nimbus-prater.dappnode:3500"
-  export "${TOKEN_FILE}"="/security/nimbus/auth-token"
+  export TOKEN_FILE="/security/nimbus/auth-token"
   ;;
 "all")
   ETH2_CLIENT_DNS="*"
@@ -55,17 +54,18 @@ fi
 # IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
 mkdir -p "$KEYFILES_DIR"
 
-# Loads envs into /etc/environment to be used by the cronjob
+# Loads envs into /etc/environment to be used by the reload-keys.sh script
 env >>/etc/environment
-# start cron and disown it
-cron -f &
+
+# start watch-keys and disown it
+watch-keys.sh &
 disown
 
 # Run web3signer binary
 # - Run key manager (it may change in the future): --key-manager-api-enabled=true
-exec -c /opt/web3signer/bin/web3signer \
+exec /opt/web3signer/bin/web3signer \
   --key-store-path="$KEYFILES_DIR" \
-  --http-listen-port="$SIGNER_PORT" \
+  --http-listen-port=9000 \
   --http-listen-host=0.0.0.0 \
   --http-host-allowlist="web3signer.web3signer-prater.dappnode,$ETH2_CLIENT_DNS" \
   --http-cors-origins=* \
