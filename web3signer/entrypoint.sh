@@ -62,7 +62,7 @@ disown
 
 # Run web3signer binary
 # - Run key manager (it may change in the future): --key-manager-api-enabled=true
-exec -c /opt/web3signer/bin/web3signer \
+exec /opt/web3signer/bin/web3signer \
   --key-store-path="$KEYFILES_DIR" \
   --http-listen-port=9000 \
   --http-listen-host=0.0.0.0 \
