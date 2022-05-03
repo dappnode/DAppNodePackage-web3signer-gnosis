@@ -10,25 +10,25 @@ case "$ETH2_CLIENT" in
   ETH2_CLIENT_DNS="validator.prysm-prater.dappnode"
   export BEACON_NODE_API="http://beacon-chain.prysm-prater.dappnode:3500"
   export CLIENT_API="http://validator.prysm-prater.dappnode:3500"
-  export "${TOKEN_FILE}"="/security/prysm/auth-token"
+  export TOKEN_FILE="/security/prysm/auth-token"
   ;;
 "teku")
   ETH2_CLIENT_DNS="validator.teku-prater.dappnode"
   export BEACON_NODE_API="http://beacon-chain.teku-prater.dappnode:3500"
   export CLIENT_API="https://validator.teku-prater.dappnode:3500"
-  export "${TOKEN_FILE}"="/security/teku/validator-api-bearer"
+  export TOKEN_FILE="/security/teku/validator-api-bearer"
   ;;
 "lighthouse")
   ETH2_CLIENT_DNS="validator.lighthouse-prater.dappnode"
   export BEACON_NODE_API="http://beacon-chain.lighthouse-prater.dappnode:3500"
   export CLIENT_API="http://validator.lighthouse-prater.dappnode:3500"
-  export "${TOKEN_FILE}"="/security/lighthouse/auth-token"
+  export TOKEN_FILE="/security/lighthouse/auth-token"
   ;;
 "nimbus")
   ETH2_CLIENT_DNS="beacon-validator.nimbus-prater.dappnode"
   export BEACON_NODE_API="http://beacon-validator.nimbus-prater.dappnode:4500"
   export CLIENT_API="http://beacon-validator.nimbus-prater.dappnode:3500"
-  export "${TOKEN_FILE}"="/security/nimbus/auth-token"
+  export TOKEN_FILE="/security/nimbus/auth-token"
   ;;
 "all")
   ETH2_CLIENT_DNS="*"
