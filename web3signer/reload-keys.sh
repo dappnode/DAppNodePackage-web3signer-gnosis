@@ -6,16 +6,16 @@
 function log {
   case $1 in
   debug)
-    [[ $LOG_LEVEL -le 0 ]] && echo "[ DEBUG-cron ] ${2}"
+    [[ $LOG_LEVEL -le 0 ]] && echo "[ DEBUG ] ${2}"
     ;;
   info)
-    [[ $LOG_LEVEL -le 1 ]] && echo "[ INFO-cron ] ${2}"
+    [[ $LOG_LEVEL -le 1 ]] && echo "[ INFO ] ${2}"
     ;;
   warn)
-    [[ $LOG_LEVEL -le 2 ]] && echo "[ WARN-cron ] ${2}"
+    [[ $LOG_LEVEL -le 2 ]] && echo "[ WARN ] ${2}"
     ;;
   error)
-    [[ $LOG_LEVEL -le 3 ]] && echo "[ ERROR-cron ] ${2}"
+    [[ $LOG_LEVEL -le 3 ]] && echo "[ ERROR ] ${2}"
     ;;
   esac
 }
@@ -209,33 +209,39 @@ function read_token_file() {
 # MAIN #
 ########
 
-log debug "starting cronjob"
+while true; do
 
-get_beacon_status # IS_BEACON_SYNCING
-log debug "beacon node syncing status: ${IS_BEACON_SYNCING}"
-if [[ "${IS_BEACON_SYNCING}" == "true" ]]; then
-  log info "beacon node is syncing, ${ETH2_CLIENT} API is not available, skipping public key comparison"
-  exit 0
-fi
+  inotifywait -e modify,create,delete -r "$KEYFILES_DIR" &&
+    {
+      log debug "change detected, starting"
 
-get_web3signer_status # WEB3SIGNER_STATUS
-log debug "web3signer status: ${WEB3SIGNER_STATUS}"
-if [[ "${WEB3SIGNER_STATUS}" != "OK" ]]; then
-  log info "web3signer is not available, skipping public key comparison"
-  exit 0
-fi
+      get_beacon_status # IS_BEACON_SYNCING
+      log debug "beacon node syncing status: ${IS_BEACON_SYNCING}"
+      if [[ "${IS_BEACON_SYNCING}" == "true" ]]; then
+        log info "beacon node is syncing, ${ETH2_CLIENT} API is not available, skipping public key comparison"
+        exit 0
+      fi
 
-get_web3signer_pubkeys # WEBWEB3SIGNER_PUBKEYS
-log debug "web3signer public keys: ${WEB3SIGNER_PUBKEYS[*]}"
+      get_web3signer_status # WEB3SIGNER_STATUS
+      log debug "web3signer status: ${WEB3SIGNER_STATUS}"
+      if [[ "${WEB3SIGNER_STATUS}" != "OK" ]]; then
+        log info "web3signer is not available, skipping public key comparison"
+        exit 0
+      fi
 
-read_token_file # AUTH_TOKEN
-log debug "token: ${AUTH_TOKEN}"
+      get_web3signer_pubkeys # WEBWEB3SIGNER_PUBKEYS
+      log debug "web3signer public keys: ${WEB3SIGNER_PUBKEYS[*]}"
 
-get_client_pubkeys # CLIENT_PUBKEYS
-log debug "client public keys: ${CLIENT_PUBKEYS[*]}"
+      read_token_file # AUTH_TOKEN
+      log debug "token: ${AUTH_TOKEN}"
 
-log debug "comparing public keys"
-compare_public_keys
+      get_client_pubkeys # CLIENT_PUBKEYS
+      log debug "client public keys: ${CLIENT_PUBKEYS[*]}"
 
-log debug "finished cronjob"
-exit 0
+      log debug "comparing public keys"
+      compare_public_keys
+
+      log debug "finished"
+      exit 0
+    }
+done

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-SIGNER_PORT=9000
-KEYFILES_DIR="/opt/web3signer/keyfiles"
+export KEYFILES_DIR="/opt/web3signer/keyfiles"
 export NETWORK="prater"
 export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:${SIGNER_PORT}"
 
@@ -55,17 +54,17 @@ fi
 # IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
 mkdir -p "$KEYFILES_DIR"
 
-# Loads envs into /etc/environment to be used by the cronjob
+# Loads envs into /etc/environment to be used by the reload-keys.sh script
 env >>/etc/environment
-# start cron and disown it
-cron -f &
+# start reload-keys and disown it
+reload-keys.sh &
 disown
 
 # Run web3signer binary
 # - Run key manager (it may change in the future): --key-manager-api-enabled=true
 exec -c /opt/web3signer/bin/web3signer \
   --key-store-path="$KEYFILES_DIR" \
-  --http-listen-port="$SIGNER_PORT" \
+  --http-listen-port=9000 \
   --http-listen-host=0.0.0.0 \
   --http-host-allowlist="web3signer.web3signer-prater.dappnode,$ETH2_CLIENT_DNS" \
   --http-cors-origins=* \
