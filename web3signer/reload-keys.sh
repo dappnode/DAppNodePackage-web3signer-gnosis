@@ -209,39 +209,33 @@ function read_token_file() {
 # MAIN #
 ########
 
-while true; do
+log debug "change detected, starting"
 
-  inotifywait -e modify,create,delete -r "$KEYFILES_DIR" &&
-    {
-      log debug "change detected, starting"
+get_beacon_status # IS_BEACON_SYNCING
+log debug "beacon node syncing status: ${IS_BEACON_SYNCING}"
+if [[ "${IS_BEACON_SYNCING}" == "true" ]]; then
+  log info "beacon node is syncing, ${ETH2_CLIENT} API is not available, skipping public key comparison"
+  exit 0
+fi
 
-      get_beacon_status # IS_BEACON_SYNCING
-      log debug "beacon node syncing status: ${IS_BEACON_SYNCING}"
-      if [[ "${IS_BEACON_SYNCING}" == "true" ]]; then
-        log info "beacon node is syncing, ${ETH2_CLIENT} API is not available, skipping public key comparison"
-        exit 0
-      fi
+get_web3signer_status # WEB3SIGNER_STATUS
+log debug "web3signer status: ${WEB3SIGNER_STATUS}"
+if [[ "${WEB3SIGNER_STATUS}" != "OK" ]]; then
+  log info "web3signer is not available, skipping public key comparison"
+  exit 0
+fi
 
-      get_web3signer_status # WEB3SIGNER_STATUS
-      log debug "web3signer status: ${WEB3SIGNER_STATUS}"
-      if [[ "${WEB3SIGNER_STATUS}" != "OK" ]]; then
-        log info "web3signer is not available, skipping public key comparison"
-        exit 0
-      fi
+get_web3signer_pubkeys # WEBWEB3SIGNER_PUBKEYS
+log debug "web3signer public keys: ${WEB3SIGNER_PUBKEYS[*]}"
 
-      get_web3signer_pubkeys # WEBWEB3SIGNER_PUBKEYS
-      log debug "web3signer public keys: ${WEB3SIGNER_PUBKEYS[*]}"
+read_token_file # AUTH_TOKEN
+log debug "token: ${AUTH_TOKEN}"
 
-      read_token_file # AUTH_TOKEN
-      log debug "token: ${AUTH_TOKEN}"
+get_client_pubkeys # CLIENT_PUBKEYS
+log debug "client public keys: ${CLIENT_PUBKEYS[*]}"
 
-      get_client_pubkeys # CLIENT_PUBKEYS
-      log debug "client public keys: ${CLIENT_PUBKEYS[*]}"
+log debug "comparing public keys"
+compare_public_keys
 
-      log debug "comparing public keys"
-      compare_public_keys
-
-      log debug "finished"
-      exit 0
-    }
-done
+log debug "finished"
+exit 0

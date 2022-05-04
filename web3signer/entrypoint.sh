@@ -56,8 +56,9 @@ mkdir -p "$KEYFILES_DIR"
 
 # Loads envs into /etc/environment to be used by the reload-keys.sh script
 env >>/etc/environment
-# start reload-keys and disown it
-reload-keys.sh &
+
+# start watch-keys and disown it
+watch-keys.sh &
 disown
 
 # Run web3signer binary
