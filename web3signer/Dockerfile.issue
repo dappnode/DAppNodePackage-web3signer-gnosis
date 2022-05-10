@@ -1,0 +1,35 @@
+###########
+# BUILDER #
+###########
+
+FROM debian:bullseye-slim  as builder
+ARG UPSTREAM_VERSION
+WORKDIR /usr/src/app
+RUN apt update && apt install curl --yes && \
+  curl https://artifacts.consensys.net/public/web3signer/raw/names/web3signer.tar.gz/versions/22.5.0/web3signer-${UPSTREAM_VERSION}.tar.gz -o web3signer.tar.gz && \
+  tar -xzf web3signer.tar.gz
+# Output: /usr/src/app/web3signer-22.5.0
+
+##############
+# WEB3SIGNER #
+##############
+
+FROM openjdk:19-jdk-bullseye
+
+ARG UPSTREAM_VERSION
+RUN apt update && apt install cron inotify-tools jq ca-certificates --yes
+
+WORKDIR /opt/web3signer
+# Copy web3signer keymanager binary
+COPY --from=builder /usr/src/app/web3signer-${UPSTREAM_VERSION}/ /opt/web3signer
+
+COPY /security /security
+COPY reload-keys.sh /usr/bin/reload-keys.sh
+COPY reload-keys-cron /etc/cron.d/
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+# Apply cron job
+RUN crontab /etc/cron.d/reload-keys-cron
+
+EXPOSE 9001 9000 9000/udp
+ENTRYPOINT /bin/bash /usr/bin/entrypoint.sh

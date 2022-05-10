@@ -2,7 +2,7 @@
 
 export KEYFILES_DIR="/opt/web3signer/keyfiles"
 export NETWORK="prater"
-export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:${SIGNER_PORT}"
+export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
 
 # Assign proper value to ETH2_CLIENT. The UI uses the web3signer domain in the Header "Host"
 case "$ETH2_CLIENT" in
@@ -51,14 +51,18 @@ else
   export LOG_LEVEL=1
 fi
 
-# IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
-mkdir -p "$KEYFILES_DIR"
-
 # Loads envs into /etc/environment to be used by the reload-keys.sh script
 env >>/etc/environment
 
+# IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
+mkdir -p "$KEYFILES_DIR"
+
 # start watch-keys and disown it
-watch-keys.sh &
+inotifywait -e modify,create,delete -r "$KEYFILES_DIR" && /usr/bin/reload-keys.sh &
+disown
+
+# start cron
+cron -f &
 disown
 
 # Run web3signer binary

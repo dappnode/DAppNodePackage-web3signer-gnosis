@@ -22,7 +22,6 @@ COPY --from=builder /usr/src/app/web3signer/web3signer-develop /opt/web3signer
 COPY /security /security
 COPY reload-keys.sh /usr/bin/reload-keys.sh
 COPY reload-keys-cron /etc/cron.d/
-COPY watch-keys.sh /usr/bin/watch-keys.sh
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
 # Apply cron job

@@ -27,6 +27,12 @@ function response_middleware() {
   200)
     log debug "success response from ${api}: ${content}, HTTP code ${http_code}"
     ;;
+  000)
+    {
+      log warn "${api} is not available, make sure the server is listening: ${content}, HTTP code ${http_code}"
+      exit 0
+    }
+    ;;
   *)
     {
       log error "error response from ${api}: ${content}, HTTP code ${http_code}"
@@ -92,7 +98,7 @@ function get_beacon_status() {
   response=$(curl -s -w "%{http_code}" -H "Content-Type: application/json" "${BEACON_NODE_API}/eth/v1/node/syncing")
   http_code=${response: -3}
   content=$(echo "${response}" | head -c-4)
-  client_response_middleware "$http_code" "$content"
+  response_middleware "$http_code" "$content" "beacon-chain"
   IS_BEACON_SYNCING=$(echo "${content}" | jq -r 'try .data.is_syncing')
 }
 

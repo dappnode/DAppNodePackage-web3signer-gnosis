@@ -7,7 +7,6 @@ RUN apt update && apt install cron inotify-tools jq ca-certificates --yes
 COPY /security /security
 COPY reload-keys.sh /usr/bin/reload-keys.sh
 COPY reload-keys-cron /etc/cron.d/
-COPY watch-keys.sh /usr/bin/watch-keys.sh
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
 # Apply cron job

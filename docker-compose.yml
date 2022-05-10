@@ -11,7 +11,7 @@ services:
       - postgres
     build:
       context: web3signer
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.issue
       args:
         UPSTREAM_VERSION: 22.5.0
     environment:
