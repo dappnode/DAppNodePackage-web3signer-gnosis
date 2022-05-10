@@ -116,7 +116,7 @@ function get_beacon_status() {
 # }
 function get_client_pubkeys() {
   local response content http_code
-  response=$(curl -s -w "%{http_code}" "${CERT_REQUEST}" -X GET -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" "${CLIENT_API}/eth/v1/remotekeys")
+  response=$(curl -s -w "%{http_code}" ${CERT_REQUEST} -X GET -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" "${CLIENT_API}/eth/v1/remotekeys")
   http_code=${response: -3}
   content=$(echo "${response}" | head -c-4)
   response_middleware "$http_code" "$content" "$ETH2_CLIENT"
