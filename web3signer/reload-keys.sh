@@ -215,7 +215,7 @@ function read_token_file() {
 # MAIN #
 ########
 
-log debug "change detected, starting"
+log debug "starting cron"
 
 get_beacon_status # IS_BEACON_SYNCING
 log debug "beacon node syncing status: ${IS_BEACON_SYNCING}"
@@ -243,5 +243,4 @@ log debug "client public keys: ${CLIENT_PUBKEYS[*]}"
 log debug "comparing public keys"
 compare_public_keys
 
-log debug "finished"
 exit 0
