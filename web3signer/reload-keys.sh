@@ -137,7 +137,7 @@ function get_client_pubkeys() {
 function post_client_pubkey() {
   local request response http_code content
   request='{"remote_keys": [{"pubkey": "'${1}'", "url": "'${WEB3SIGNER_API}'"}]}'
-  response=$(curl -s -w "%{http_code}" "${CERT_REQUEST}" -X POST -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${request}" "${CLIENT_API}/eth/v1/remotekeys")
+  response=$(curl -s -w "%{http_code}" ${CERT_REQUEST} -X POST -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${request}" "${CLIENT_API}/eth/v1/remotekeys")
   http_code=${response: -3}
   content=$(echo "${response}" | head -c-4)
   response_middleware "$http_code" "$content" "$ETH2_CLIENT"
@@ -154,7 +154,7 @@ function post_client_pubkey() {
 function delete_client_pubkey() {
   local request response http_code content
   request='{"pubkeys": ["'${1}'"]}'
-  response=$(curl -s -w "%{http_code}" "${CERT_REQUEST}" -X DELETE -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${request}" "${CLIENT_API}/eth/v1/remotekeys")
+  response=$(curl -s -w "%{http_code}" ${CERT_REQUEST} -X DELETE -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${request}" "${CLIENT_API}/eth/v1/remotekeys")
   http_code=${response: -3}
   content=$(echo "${response}" | head -c-4)
   response_middleware "$http_code" "$content" "$ETH2_CLIENT"
