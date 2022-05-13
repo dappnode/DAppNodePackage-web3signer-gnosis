@@ -9,9 +9,12 @@ services:
     image: "web3signer.web3signer-prater.dnp.dappnode.eth:0.1.0"
     depends_on:
       - postgres
+    security_opt:
+      # See https://github.com/ConsenSys/web3signer/issues/560
+      - "seccomp:unconfined"
     build:
       context: web3signer
-      dockerfile: Dockerfile.issue
+      dockerfile: Dockerfile
       args:
         UPSTREAM_VERSION: 22.5.0
     environment:
