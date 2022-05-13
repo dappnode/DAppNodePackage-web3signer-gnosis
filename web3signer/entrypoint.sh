@@ -1,33 +1,33 @@
 #!/bin/bash
 
 export KEYFILES_DIR="/opt/web3signer/keyfiles"
-export NETWORK="prater"
+export NETWORK="gnosis"
 export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
 
 # Assign proper value to ETH2_CLIENT. The UI uses the web3signer domain in the Header "Host"
 case "$ETH2_CLIENT" in
 "prysm")
-  ETH2_CLIENT_DNS="validator.prysm-prater.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.prysm-prater.dappnode:3500"
-  export CLIENT_API="http://validator.prysm-prater.dappnode:3500"
+  ETH2_CLIENT_DNS="validator.prysm-gnosis.dappnode"
+  export BEACON_NODE_API="http://beacon-chain.prysm-gnosis.dappnode:3500"
+  export CLIENT_API="http://validator.prysm-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/prysm/auth-token"
   ;;
 "teku")
-  ETH2_CLIENT_DNS="validator.teku-prater.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.teku-prater.dappnode:3500"
-  export CLIENT_API="https://validator.teku-prater.dappnode:3500"
+  ETH2_CLIENT_DNS="validator.teku-gnosis.dappnode"
+  export BEACON_NODE_API="http://beacon-chain.teku-gnosis.dappnode:3500"
+  export CLIENT_API="https://validator.teku-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/teku/validator-api-bearer"
   ;;
 "lighthouse")
-  ETH2_CLIENT_DNS="validator.lighthouse-prater.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.lighthouse-prater.dappnode:3500"
-  export CLIENT_API="http://validator.lighthouse-prater.dappnode:3500"
+  ETH2_CLIENT_DNS="validator.lighthouse-gnosis.dappnode"
+  export BEACON_NODE_API="http://beacon-chain.lighthouse-gnosis.dappnode:3500"
+  export CLIENT_API="http://validator.lighthouse-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/lighthouse/auth-token"
   ;;
 "nimbus")
-  ETH2_CLIENT_DNS="beacon-validator.nimbus-prater.dappnode"
-  export BEACON_NODE_API="http://beacon-validator.nimbus-prater.dappnode:4500"
-  export CLIENT_API="http://beacon-validator.nimbus-prater.dappnode:3500"
+  ETH2_CLIENT_DNS="beacon-validator.nimbus-gnosis.dappnode"
+  export BEACON_NODE_API="http://beacon-validator.nimbus-gnosis.dappnode:4500"
+  export CLIENT_API="http://beacon-validator.nimbus-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/nimbus/auth-token"
   ;;
 "all")
@@ -71,14 +71,14 @@ exec /opt/web3signer/bin/web3signer \
   --key-store-path="$KEYFILES_DIR" \
   --http-listen-port=9000 \
   --http-listen-host=0.0.0.0 \
-  --http-host-allowlist="web3signer.web3signer-prater.dappnode,$ETH2_CLIENT_DNS" \
+  --http-host-allowlist="web3signer.web3signer-gnosis.dappnode,$ETH2_CLIENT_DNS" \
   --http-cors-origins=* \
   --metrics-enabled=true \
   --metrics-host 0.0.0.0 \
   --metrics-port 9091 \
   --metrics-host-allowlist="*" \
   eth2 \
-  --network=prater \
+  --network=gnosis \
   --slashing-protection-db-url=jdbc:postgresql://postgres:5432/web3signer \
   --slashing-protection-db-username=postgres \
   --slashing-protection-db-password=password \

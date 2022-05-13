@@ -28,7 +28,7 @@ Rquirements to run DAppNode package for Werb3signer
 
 - **Validator**: set up your validator at https://prater.launchpad.ethereum.org/
 - **Ethereum1 client**: you should have installed and synced an Eth1 client such as gorli
-- **Ethereum2 client**: you should have installed and synced an Eth2 client such as Prysm-prater-web3signer
+- **Ethereum2 client**: you should have installed and synced an Eth2 client such as Prysm-gnosis-web3signer
 
 ### Manteinance
 

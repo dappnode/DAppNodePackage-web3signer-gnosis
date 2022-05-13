@@ -132,7 +132,7 @@
       "pluginVersion": "6.7.2",
       "targets": [
         {
-          "expr": "signing_signers_loaded_count{instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "signing_signers_loaded_count{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -206,7 +206,7 @@
       "pluginVersion": "6.7.2",
       "targets": [
         {
-          "expr": "jvm_memory_bytes_max{area=\"heap\", instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "jvm_memory_bytes_max{area=\"heap\", instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -305,7 +305,7 @@
       "pluginVersion": "6.7.2",
       "targets": [
         {
-          "expr": "signing_bls_signing_duration{instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "signing_bls_signing_duration{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -370,7 +370,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(signing_bls_signing_duration_count{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m]))",
+          "expr": "sum(rate(signing_bls_signing_duration_count{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}[1m]))",
           "instant": false,
           "interval": "",
           "legendFormat": "sigs/s",
@@ -482,7 +482,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(eth2_slashingprotection_prevented_signings{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
+          "expr": "rate(eth2_slashingprotection_prevented_signings{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}[1m])",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -580,7 +580,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(signing_bls_missing_identifier_count{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
+          "expr": "rate(signing_bls_missing_identifier_count{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}[1m])",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -690,7 +690,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(http_bls_malformed_request_count{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
+          "expr": "rate(http_bls_malformed_request_count{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}[1m])",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -807,7 +807,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(process_cpu_seconds_total{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
+          "expr": "irate(process_cpu_seconds_total{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}[1m])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 3,
@@ -918,7 +918,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "jvm_memory_bytes_used{instance=\"web3signer.web3signer-prater.dappnode:9091\", area=\"heap\"} + ignoring(area) jvm_memory_bytes_used{instance=\"web3signer.web3signer-prater.dappnode:9091\", area=\"nonheap\"}",
+          "expr": "jvm_memory_bytes_used{instance=\"web3signer.web3signer-gnosis.dappnode:9091\", area=\"heap\"} + ignoring(area) jvm_memory_bytes_used{instance=\"web3signer.web3signer-gnosis.dappnode:9091\", area=\"nonheap\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -927,7 +927,7 @@
           "refId": "A"
         },
         {
-          "expr": "jvm_memory_bytes_max{instance=\"web3signer.web3signer-prater.dappnode:9091\", area=\"heap\"} + ignoring(area) jvm_memory_bytes_max{instance=\"web3signer.web3signer-prater.dappnode:9091\", area=\"nonheap\"}",
+          "expr": "jvm_memory_bytes_max{instance=\"web3signer.web3signer-gnosis.dappnode:9091\", area=\"heap\"} + ignoring(area) jvm_memory_bytes_max{instance=\"web3signer.web3signer-gnosis.dappnode:9091\", area=\"nonheap\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -1031,7 +1031,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "process_resident_memory_bytes{instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "process_resident_memory_bytes{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1138,7 +1138,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(jvm_gc_collection_seconds_sum{instance=\"web3signer.web3signer-prater.dappnode:9091\"}[1m])",
+          "expr": "rate(jvm_gc_collection_seconds_sum{instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}[1m])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1250,7 +1250,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "jvm_threads_state{state=\"WAITING\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "jvm_threads_state{state=\"WAITING\",instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1260,7 +1260,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"TIMED_WAITING\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "jvm_threads_state{state=\"TIMED_WAITING\",instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1270,7 +1270,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"RUNNABLE\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "jvm_threads_state{state=\"RUNNABLE\",instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1280,7 +1280,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"BLOCKED\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "jvm_threads_state{state=\"BLOCKED\",instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1290,7 +1290,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"NEW\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "jvm_threads_state{state=\"NEW\",instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
@@ -1300,7 +1300,7 @@
           "step": 10
         },
         {
-          "expr": "jvm_threads_state{state=\"TERMINATED\",instance=\"web3signer.web3signer-prater.dappnode:9091\"}",
+          "expr": "jvm_threads_state{state=\"TERMINATED\",instance=\"web3signer.web3signer-gnosis.dappnode:9091\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 5,
