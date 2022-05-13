@@ -1,0 +1,49 @@
+version: "3.5"
+services:
+  ui:
+    image: "ui.web3signer-prater.dnp.dappnode.eth:0.1.0"
+    build:
+      context: ui
+    restart: unless-stopped
+  web3signer:
+    image: "web3signer.web3signer-prater.dnp.dappnode.eth:0.1.0"
+    depends_on:
+      - postgres
+    build:
+      context: web3signer
+      dockerfile: Dockerfile.dev
+      args:
+        UPSTREAM_VERSION: 21.10.6
+    environment:
+      KEYFILES_DIR: /opt/web3signer/keyfiles
+      SIGNER_PORT: 9000
+    volumes:
+      - "web3signer_data:/opt/web3signer"
+    restart: unless-stopped
+  postgres:
+    image: "postgres.web3signer-prater.dnp.dappnode.eth:0.1.0"
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    build:
+      context: postgres
+      dockerfile: Dockerfile.dev
+      args:
+        UPSTREAM_VERSION: 21.10.6
+    env_file:
+      - ./postgres/.env.postgres
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: web3signer
+    user: postgres
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+      - "postgres_migrations:/docker-entrypoint-initdb.d"
+    restart: unless-stopped
+volumes:
+  web3signer_data: {}
+  postgres_data: {}
+  postgres_migrations: {}

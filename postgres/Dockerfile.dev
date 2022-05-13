@@ -1,0 +1,21 @@
+##############
+# MIGRATIONS #
+##############
+FROM debian:bullseye-slim as postgres-migrations
+WORKDIR /usr/src/app
+
+# Get scripts from github repository https://github.com/ConsenSys/web3signer/tree/master/slashing-protection/src/main/resources/migrations/postgresql
+# These scripts contains the latest, used by the develop branch of the web3signer repository used in the web3signer service
+RUN apt update && apt install git -y && git clone https://github.com/ConsenSys/web3signer.git
+
+############
+# POSTGRES #
+############
+FROM postgres:14.1-bullseye
+RUN apt update && apt install -y rename
+
+COPY --from=postgres-migrations /usr/src/app/web3signer/slashing-protection/src/main/resources/migrations/postgresql/* /docker-entrypoint-initdb.d/
+# Rename scripts to be executed in alfabetical order
+RUN rename 's/(\d+)(?=.*\.)/sprintf("%03d",$1)/eg' /docker-entrypoint-initdb.d/*
+
+CMD ["postgres"]
