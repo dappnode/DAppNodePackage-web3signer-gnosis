@@ -7,9 +7,9 @@ export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
 # Assign proper value to ETH2_CLIENT. The UI uses the web3signer domain in the Header "Host"
 case "$ETH2_CLIENT" in
 "prysm")
-  ETH2_CLIENT_DNS="validator.prysm-gnosis.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.prysm-gnosis.dappnode:3500"
-  export CLIENT_API="http://validator.prysm-gnosis.dappnode:3500"
+  ETH2_CLIENT_DNS="validator.gnosis-beacon-chain-prysm.dappnode"
+  export BEACON_NODE_API="http://beacon-chain.gnosis-beacon-chain-prysm.dappnode:3500"
+  export CLIENT_API="http://validator.gnosis-beacon-chain-prysm.dappnode:3500"
   export TOKEN_FILE="/security/prysm/auth-token"
   ;;
 "teku")
