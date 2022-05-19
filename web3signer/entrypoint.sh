@@ -71,7 +71,7 @@ exec /opt/web3signer/bin/web3signer \
   --key-store-path="$KEYFILES_DIR" \
   --http-listen-port=9000 \
   --http-listen-host=0.0.0.0 \
-  --http-host-allowlist="web3signer.web3signer-gnosis.dappnode,$ETH2_CLIENT_DNS" \
+  --http-host-allowlist="web3signer.web3signer-gnosis.dappnode,web3signer.web3signer-gnosis.dappnode,$ETH2_CLIENT_DNS" \
   --http-cors-origins=* \
   --metrics-enabled=true \
   --metrics-host 0.0.0.0 \
