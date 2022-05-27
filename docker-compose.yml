@@ -10,13 +10,12 @@ services:
     depends_on:
       - postgres
     security_opt:
-      # See https://github.com/ConsenSys/web3signer/issues/560
       - "seccomp:unconfined"
     build:
       context: web3signer
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 22.5.0
+        UPSTREAM_VERSION: 22.5.1
     environment:
       ETH2_CLIENT: prysm
       LOG_TYPE: INFO
@@ -35,7 +34,7 @@ services:
       context: postgres
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 22.5.0
+        UPSTREAM_VERSION: 22.5.1
     env_file:
       - ./postgres/.env.postgres
     environment:
