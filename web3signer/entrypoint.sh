@@ -22,7 +22,7 @@ case "$ETH2_CLIENT" in
   ETH2_CLIENT_DNS="validator.lighthouse-gnosis.dappnode"
   export BEACON_NODE_API="http://beacon-chain.lighthouse-gnosis.dappnode:3500"
   export CLIENT_API="http://validator.lighthouse-gnosis.dappnode:3500"
-  export TOKEN_FILE="/security/lighthouse/auth-token"
+  export TOKEN_FILE="/security/lighthouse/api-token.txt"
   ;;
 "nimbus")
   ETH2_CLIENT_DNS="beacon-validator.nimbus-gnosis.dappnode"
