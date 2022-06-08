@@ -4,6 +4,7 @@
   "upstreamVersion": "22.5.1",
   "architectures": ["linux/amd64"],
   "upstreamRepo": "ConsenSys/web3signer",
+  "mainService": "web3signer",
   "shortDescription": "Remote signer + slashing protection database + User interface to import validator keystores",
   "description": "Web3Signer is an open-source signing service developed under the Apache 2.0 license and written in Java. Web3Signer is capable of signing on multiple platforms using private keys stored in an external vault, or encrypted on a disk.",
   "type": "service",
