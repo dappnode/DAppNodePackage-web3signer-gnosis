@@ -39,7 +39,7 @@ services:
     env_file:
       - ./postgres/.env.postgres
     environment:
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: gnosis
       POSTGRES_USER: postgres
       POSTGRES_DB: web3signer
     user: postgres
