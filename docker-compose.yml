@@ -36,12 +36,6 @@ services:
       dockerfile: Dockerfile
       args:
         UPSTREAM_VERSION: 22.5.1
-    env_file:
-      - ./postgres/.env.postgres
-    environment:
-      POSTGRES_PASSWORD: gnosis
-      POSTGRES_USER: postgres
-      POSTGRES_DB: web3signer
     user: postgres
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
