@@ -25,6 +25,7 @@ RUN wget -q https://github.com/ConsenSys/web3signer/archive/refs/tags/${UPSTREAM
 FROM postgres:14.1-bullseye
 ARG UPSTREAM_VERSION
 ENV POSTGRES_PASSWORD=gnosis
+ENV PGPASSWORD=gnosis
 ENV POSTGRES_USER=postgres
 ENV POSTGRES_DB=web3signer-gnosis
 RUN apt update && apt install -y rename
