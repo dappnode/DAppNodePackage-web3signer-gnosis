@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for client in $CLIENTS_TO_REMOVE; do
+for client in "${CLIENTS_TO_REMOVE[@]}"; do
   case "$client" in
   "prysm")
     CLIENT_API="http://validator.gnosis-beacon-chain-prysm.dappnode:3500"
