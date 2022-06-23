@@ -28,6 +28,6 @@
   },
   "license": "GLP-3.0",
   "requirements": {
-    "minimumDappnodeVersion": "0.2.51"
+    "minimumDappnodeVersion": "0.2.56"
   }
 }
