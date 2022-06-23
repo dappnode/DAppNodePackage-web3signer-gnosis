@@ -24,15 +24,6 @@ case "$ETH2_CLIENT" in
   export CLIENT_API="http://validator.lighthouse-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/lighthouse/api-token.txt"
   ;;
-"nimbus")
-  ETH2_CLIENT_DNS="beacon-validator.nimbus-gnosis.dappnode"
-  export BEACON_NODE_API="http://beacon-validator.nimbus-gnosis.dappnode:4500"
-  export CLIENT_API="http://beacon-validator.nimbus-gnosis.dappnode:3500"
-  export TOKEN_FILE="/security/nimbus/auth-token"
-  ;;
-"all")
-  ETH2_CLIENT_DNS="*"
-  ;;
 *)
   echo "ETH2_CLIENT env is not set propertly"
   exit 1

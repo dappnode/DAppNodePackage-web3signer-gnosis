@@ -7,11 +7,10 @@ fields:
       service: web3signer
     title: Eth2 client
     description: >-
-      Select the Eth2 client you want the web3signer listen requests from.
+      **WARNING**: MAKE SURE YOU SELECT A CLIENT YOU ALREADY HAVE INSTALLED OR ARE ABOUT TO INSTALL. Select the Eth2 client you want the web3signer listen requests from.
       You can change this parameter in the future
     enum:
       - prysm
       - teku
       - lighthouse
-      - nimbus
     required: true
