@@ -49,7 +49,7 @@ fi
 env >>/etc/environment
 
 # delete all the pubkeys from the all the clients (excluding the client selected)
-/usr/bin/delete-keys.sh
+/usr/bin/delete-keys.sh "${CLIENTS_TO_REMOVE[@]}"
 
 # IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
 mkdir -p "$KEYFILES_DIR"

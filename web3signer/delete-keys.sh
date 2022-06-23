@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CLIENTS_TO_REMOVE=("$@")
+
 for client in "${CLIENTS_TO_REMOVE[@]}"; do
   case "$client" in
   "prysm")
