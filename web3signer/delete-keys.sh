@@ -5,6 +5,7 @@ for client in "${CLIENTS_TO_REMOVE[@]}"; do
   "prysm")
     CLIENT_API="http://validator.gnosis-beacon-chain-prysm.dappnode:3500"
     TOKEN_FILE="/security/prysm/auth-token"
+    CERT_REQUEST=""
     ;;
   "teku")
     CLIENT_API="https://validator.teku-gnosis.dappnode:3500"
@@ -14,6 +15,7 @@ for client in "${CLIENTS_TO_REMOVE[@]}"; do
   "lighthouse")
     CLIENT_API="http://validator.lighthouse-gnosis.dappnode:3500"
     TOKEN_FILE="/security/lighthouse/api-token.txt"
+    CERT_REQUEST=""
     ;;
   *)
     echo "client does not exist"
@@ -44,10 +46,10 @@ for client in "${CLIENTS_TO_REMOVE[@]}"; do
     if ((${#client_pubkeys[@]})); then
       client_pubkeys_comma_separated=$(echo "${client_pubkeys[*]}" | tr ' ' ',')
 
-      echo "deleting pubkeys ${client_pubkeys_comma_separated} on client ${client}"
       # Delete public keys on the client
+      echo "deleting pubkeys ${client_pubkeys_comma_separated} on client ${client}"
       delete_request='{"pubkeys": ["'${client_pubkeys_comma_separated}'"]}'
-      curl "${CERT_REQUEST}" -X DELETE -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${delete_request}" "${CLIENT_API}/eth/v1/remotekeys"
+      curl ${CERT_REQUEST} -X DELETE -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${delete_request}" "${CLIENT_API}/eth/v1/remotekeys"
     fi
   fi
 done
