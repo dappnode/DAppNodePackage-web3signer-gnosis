@@ -11,18 +11,21 @@ case "$ETH2_CLIENT" in
   export BEACON_NODE_API="http://beacon-chain.gnosis-beacon-chain-prysm.dappnode:3500"
   export CLIENT_API="http://validator.gnosis-beacon-chain-prysm.dappnode:3500"
   export TOKEN_FILE="/security/prysm/auth-token"
+  export CLIENTS_TO_REMOVE=(teku lighthouse)
   ;;
 "teku")
   ETH2_CLIENT_DNS="validator.teku-gnosis.dappnode"
   export BEACON_NODE_API="http://beacon-chain.teku-gnosis.dappnode:3500"
   export CLIENT_API="https://validator.teku-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/teku/validator-api-bearer"
+  export CLIENTS_TO_REMOVE=(lighthouse prysm)
   ;;
 "lighthouse")
   ETH2_CLIENT_DNS="validator.lighthouse-gnosis.dappnode"
   export BEACON_NODE_API="http://beacon-chain.lighthouse-gnosis.dappnode:3500"
   export CLIENT_API="http://validator.lighthouse-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/lighthouse/api-token.txt"
+  export CLIENTS_TO_REMOVE=(teku prysm)
   ;;
 *)
   echo "ETH2_CLIENT env is not set propertly"
@@ -44,6 +47,9 @@ fi
 
 # Loads envs into /etc/environment to be used by the reload-keys.sh script
 env >>/etc/environment
+
+# delete all the pubkeys from the all the clients (excluding the client selected)
+/usr/bin/delete-keys.sh
 
 # IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
 mkdir -p "$KEYFILES_DIR"
