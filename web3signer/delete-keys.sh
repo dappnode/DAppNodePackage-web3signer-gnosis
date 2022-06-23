@@ -46,11 +46,12 @@ for client in "${CLIENTS_TO_REMOVE[@]}"; do
   if [[ ${get_http_code} == 200 ]]; then
     client_pubkeys=($(echo "${get_content}" | jq -r 'try .data[].pubkey'))
     if ((${#client_pubkeys[@]})); then
-      client_pubkeys_comma_separated=$(echo "${client_pubkeys[*]}" | tr ' ' ',')
+      # format: "pubkey1","pubkey2","pubkey3"...
+      client_pubkeys_comma_separated=$(echo "\"${client_pubkeys[*]}\"" | sed -r 's/ /\",\"/g')
 
       # Delete public keys on the client
       echo "deleting pubkeys ${client_pubkeys_comma_separated} on client ${client}"
-      delete_request='{"pubkeys": ["'${client_pubkeys_comma_separated}'"]}'
+      delete_request="{\"pubkeys\": [${client_pubkeys_comma_separated}]}"
       curl ${CERT_REQUEST} -X DELETE -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${delete_request}" "${CLIENT_API}/eth/v1/remotekeys"
     fi
   fi
