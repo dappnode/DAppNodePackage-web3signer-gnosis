@@ -30,16 +30,22 @@ function response_middleware() {
   000)
     {
       log warn "${api} is not available, make sure the server is listening: ${content}, HTTP code ${http_code}"
+      [[ $api != "web3signer" ]] && send_dappmanager_notification
       exit 0
     }
     ;;
   *)
     {
       log error "error response from ${api}: ${content}, HTTP code ${http_code}"
+      [[ $api != "web3signer" ]] && send_dappmanager_notification
       exit 0
     }
     ;;
   esac
+}
+
+function send_dappmanager_notification() {
+  curl -X POST -G 'http://my.dappnode/notification-send' --data-urlencode 'type=danger' --data-urlencode title="$ETH2_CLIENT is not available" --data-urlencode 'body=Make sure you select an available client in the web3signer at packages > web3signer > config > eth2client'
 }
 
 ##################
