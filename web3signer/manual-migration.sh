@@ -95,7 +95,7 @@ function import_validators() {
 }
 
 function empty_migration_dir() {
-  rm -rf "${MANUAL_MIGRATION_DIR}/*"
+  rm -rf ${MANUAL_MIGRATION_DIR}/*
 }
 
 ########
