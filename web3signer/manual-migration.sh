@@ -112,5 +112,6 @@ echo "${INFO} ensuring requirements"
 ensure_requirements
 echo "${INFO} importing validators"
 import_validators
-
+echo "${INFO} cleaning files"
+empty_migration_dir
 exit 0
