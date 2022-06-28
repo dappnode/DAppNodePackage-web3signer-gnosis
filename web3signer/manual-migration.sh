@@ -10,10 +10,11 @@ set -eo pipefail
 ERROR="[ ERROR-migration ]"
 INFO="[ INFO-migration ]"
 
-MANUAL_MIGRATION_DIR="/opt/web3signer/manual_migration"
+WORKDIR="/opt/web3signer"
+MANUAL_MIGRATION_DIR="${WORKDIR}/manual_migration"
 BACKUP_FILE="${MANUAL_MIGRATION_DIR}/backup.zip"
 BACKUP_WALLETPASSWORD_FILE="${MANUAL_MIGRATION_DIR}/walletpassword.txt"
-REQUEST_BODY_FILE="${MANUAL_MIGRATION_DIR}/request_body.json"
+REQUEST_BODY_FILE="${MANUAL_MIGRATION_DIR}/request_body"
 
 #############
 # FUNCTIONS #
@@ -21,6 +22,10 @@ REQUEST_BODY_FILE="${MANUAL_MIGRATION_DIR}/request_body.json"
 
 # Ensure files needed for migration exists
 function extract_files() {
+  mkdir -p "${MANUAL_MIGRATION_DIR}"
+
+  mv ${WORKDIR}/backup.zip ${BACKUP_FILE}
+
   # Check if wallet password file exists
   if [ ! -f "${BACKUP_FILE}" ]; then
     {

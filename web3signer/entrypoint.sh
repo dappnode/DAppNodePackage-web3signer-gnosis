@@ -56,7 +56,7 @@ mkdir -p "$KEYFILES_DIR"
 mkdir -p "/opt/web3signer/manual_migration"
 
 # Implement manual migration if required
-inotifywait -e create -r /opt/web3signer/manual_migration && /usr/bin/manual-migration.sh &
+inotifywait -e close_write --include 'backup\.zip' /opt/web3signer && /usr/bin/manual-migration.sh &
 disown
 
 # start watch-keys and disown it
