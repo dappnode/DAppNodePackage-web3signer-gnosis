@@ -53,6 +53,7 @@ env >>/etc/environment
 
 # IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
 mkdir -p "$KEYFILES_DIR"
+mkdir -p "/opt/web3signer/manual_migration"
 
 # Implement manual migration if required
 inotifywait -e create -r /opt/web3signer/manual_migration && /usr/bin/manual-migration.sh &
