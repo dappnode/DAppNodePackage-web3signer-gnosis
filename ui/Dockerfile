@@ -6,8 +6,7 @@ RUN npm install --globally react-scripts
 RUN yarn
 RUN yarn run build
 
+FROM nginx:1.21.6-alpine
 ENV NETWORK="gnosis"
-
-FROM nginx:1.21.6-alpine 
 COPY --from=build /app/eth2-keymanager-frontend/build/ /usr/share/nginx/html/
 EXPOSE 80
