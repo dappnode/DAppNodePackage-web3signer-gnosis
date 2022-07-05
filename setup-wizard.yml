@@ -5,9 +5,9 @@ fields:
       type: environment
       name: ETH2_CLIENT
       service: web3signer
-    title: Eth2 client
+    title: Gnosis Chain Consensus Layer Client
     description: >-
-      **WARNING**: MAKE SURE YOU SELECT A CLIENT YOU ALREADY HAVE INSTALLED OR ARE ABOUT TO INSTALL. Select the Eth2 client you want the web3signer listen requests from.
+      **WARNING**: MAKE SURE YOU SELECT A CLIENT YOU ALREADY HAVE INSTALLED OR ARE ABOUT TO INSTALL. Select the Gnosis Chain Consensus Layer client you want the web3signer to listen requests from.
       You can change this parameter in the future
     enum:
       - prysm
