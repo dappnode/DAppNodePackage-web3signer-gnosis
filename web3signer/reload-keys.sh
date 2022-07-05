@@ -45,7 +45,7 @@ function response_middleware() {
 }
 
 function send_dappmanager_notification() {
-  curl -X POST -G 'http://my.dappnode/notification-send' --data-urlencode 'type=danger' --data-urlencode title="$ETH2_CLIENT is not available" --data-urlencode 'body=Make sure you select an available client in the web3signer at packages > web3signer > config > eth2client'
+  curl -X POST -G 'http://my.dappnode/notification-send' --data-urlencode 'type=danger' --data-urlencode title="$ETH2_CLIENT Gnosis Chain is not available" --data-urlencode 'body=Make sure you select an available client in the web3signer at packages > web3signer Gnosis Chain > config > Gnosis Chain Consensus Layer Client'
 }
 
 ##################
