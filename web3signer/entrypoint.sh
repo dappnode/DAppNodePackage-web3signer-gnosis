@@ -84,5 +84,6 @@ exec /opt/web3signer/bin/web3signer \
   --slashing-protection-db-url=jdbc:postgresql://postgres.web3signer-gnosis.dappnode:5432/web3signer-gnosis \
   --slashing-protection-db-username=postgres \
   --slashing-protection-db-password=gnosis \
+  --slashing-protection-db-pool-configuration-file=/hikari-config \
   --key-manager-api-enabled=true \
   ${EXTRA_OPTS}
