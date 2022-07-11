@@ -4,7 +4,7 @@ ARG UPSTREAM_VERSION
 # Prune image #
 ###############
 # golang alpine 1.17
-FROM golang:1.17-alpine as import-one-by-one
+FROM golang:1.17-alpine as importer
 WORKDIR /usr/src/app
 RUN apk update && apk add git && git clone https://github.com/dappnode/web3signer-import-one-by-one.git && \
   go build -o import-one-by-one ./web3signer-import-one-by-one/import-one-by-one.go
@@ -25,7 +25,7 @@ COPY reload-keys-cron /etc/cron.d/
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
 # Copy import one-by-one
-COPY --from=import-one-by-one /usr/src/app/import-one-by-one /usr/local/bin
+COPY --from=importer /usr/src/app/import-one-by-one /usr/local/bin
 
 # Apply cron job
 RUN crontab /etc/cron.d/reload-keys-cron
