@@ -66,31 +66,10 @@ function ensure_requirements() {
   fi
 }
 
-# Create request body file
-# - It cannot be used as environment variable because the slashing data might be too big resulting in the error: Error list too many arguments
-# - Exit if request body file cannot be created
-function create_request_body_file() {
-  echo '{}' | jq '{ keystores: [], passwords: [] }' >"$REQUEST_BODY_FILE"
-  KEYSTORE_FILES=($(ls "${MANUAL_MIGRATION_DIR}"/*.json))
-  for KEYSTORE_FILE in "${KEYSTORE_FILES[@]}"; do
-    echo $(jq --slurpfile keystore ${KEYSTORE_FILE} '.keystores += [$keystore[0]|tojson]' ${REQUEST_BODY_FILE}) >${REQUEST_BODY_FILE}
-    echo $(jq --arg walletpassword "$(cat ${BACKUP_WALLETPASSWORD_FILE})" '.passwords += [$walletpassword]' ${REQUEST_BODY_FILE}) >${REQUEST_BODY_FILE}
-  done
-}
-
 # Import validators with request body file
 # - Docs: https://consensys.github.io/web3signer/web3signer-eth2.html#operation/KEYMANAGER_IMPORT
 function import_validators() {
-  curl -X POST \
-    -d @"${REQUEST_BODY_FILE}" \
-    --retry 60 \
-    --retry-delay 3 \
-    --retry-all-errors \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -H "Host: prysm.migration-gnosis.dappnode" \
-    "${WEB3SIGNER_API}"/eth/v1/keystores
-
+  import-one-by-one --keystores-path "$MANUAL_MIGRATION_DIR" --wallet-password-path "$BACKUP_WALLETPASSWORD_FILE" --network gnosis
   echo "${INFO} validators imported"
 }
 
@@ -111,8 +90,6 @@ trap 'error_handling' ERR
 
 echo "${INFO} extracting files"
 extract_files
-echo "${INFO} creating request body"
-create_request_body_file
 echo "${INFO} ensuring requirements"
 ensure_requirements
 echo "${INFO} importing validators"
