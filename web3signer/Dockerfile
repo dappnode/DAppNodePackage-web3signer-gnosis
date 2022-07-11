@@ -6,6 +6,8 @@ ARG UPSTREAM_VERSION
 # golang alpine 1.17
 FROM golang:1.17-alpine as importer
 WORKDIR /usr/src/app
+# Needed to create binary to be executed in debian. See https://pkg.go.dev/cmd/cgo
+ENV CGO_ENABLED=0
 RUN apk update && apk add git && git clone https://github.com/dappnode/web3signer-import-one-by-one.git && \
   go build -o import-one-by-one ./web3signer-import-one-by-one/import_one_by_one.go
 
