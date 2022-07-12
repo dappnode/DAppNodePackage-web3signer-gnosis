@@ -56,11 +56,11 @@ mkdir -p "$KEYFILES_DIR"
 mkdir -p "/opt/web3signer/manual_migration"
 
 # Implement manual migration if required
-inotifywait -m -e close_write --include 'backup\.zip' /opt/web3signer && /usr/bin/manual-migration.sh &
+while inotifywait -m -e close_write --include 'backup\.zip' /opt/web3signer; do /usr/bin/manual-migration.sh; done &
 disown
 
 # start watch-keys and disown it
-inotifywait -m -e modify,create,delete -r "$KEYFILES_DIR" && /usr/bin/reload-keys.sh &
+while inotifywait -m -e modify,create,delete -r "$KEYFILES_DIR"; do /usr/bin/reload-keys.sh; done &
 disown
 
 # start cron

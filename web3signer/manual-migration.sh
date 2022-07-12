@@ -14,7 +14,6 @@ WORKDIR="/opt/web3signer"
 MANUAL_MIGRATION_DIR="${WORKDIR}/manual_migration"
 BACKUP_FILE="${MANUAL_MIGRATION_DIR}/backup.zip"
 BACKUP_WALLETPASSWORD_FILE="${MANUAL_MIGRATION_DIR}/walletpassword.txt"
-REQUEST_BODY_FILE="${MANUAL_MIGRATION_DIR}/request_body"
 
 #############
 # FUNCTIONS #
