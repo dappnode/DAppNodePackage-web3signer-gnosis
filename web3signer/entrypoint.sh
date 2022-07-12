@@ -79,7 +79,7 @@ exec /opt/web3signer/bin/web3signer \
   --metrics-host 0.0.0.0 \
   --metrics-port 9091 \
   --metrics-host-allowlist="*" \
-  --idle-connection-timeout-seconds=360 \
+  --idle-connection-timeout-seconds=90 \
   eth2 \
   --network=gnosis \
   --slashing-protection-db-url=jdbc:postgresql://postgres.web3signer-gnosis.dappnode:5432/web3signer-gnosis \

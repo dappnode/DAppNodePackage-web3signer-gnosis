@@ -140,9 +140,16 @@ function get_client_pubkeys() {
 #     }
 #   ]
 # }
-function post_client_pubkey() {
+function post_client_pubkeys() {
   local request response http_code content
-  request='{"remote_keys": [{"pubkey": "'${1}'", "url": "'${WEB3SIGNER_API}'"}]}'
+
+  request="{\"remote_keys\": ["
+  for pubkey in "${@:1}"; do
+    request+="{\"pubkey\": \"$pubkey\", \"url\": \"${WEB3SIGNER_API}\"},"
+  done
+  request=${request::-1}
+  request+="]}"
+
   response=$(curl -s -w "%{http_code}" ${CERT_REQUEST} -X POST -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${request}" "${CLIENT_API}/eth/v1/remotekeys")
   http_code=${response: -3}
   content=$(echo "${response}" | head -c-4)
@@ -184,11 +191,10 @@ function compare_public_keys() {
     fi
   done
 
-  if [[ ${pubkeys_to_delete: -1} == "," ]]; then
-    pubkeys_to_delete=${pubkeys_to_delete::-1}
-  fi
-
   if [[ -n "${pubkeys_to_delete}" ]]; then
+    if [[ ${pubkeys_to_delete: -1} == "," ]]; then
+      pubkeys_to_delete=${pubkeys_to_delete::-1}
+    fi
     log info "deleting pubkeys ${pubkeys_to_delete}"
     delete_client_pubkeys "${pubkeys_to_delete}"
   else
@@ -201,10 +207,8 @@ function compare_public_keys() {
     [[ ! " ${CLIENT_PUBKEYS[*]} " =~ ${pubkey} ]] && pubkeys_to_import+=("${pubkey}")
   done
   if [[ ${#pubkeys_to_import[@]} -ne 0 ]]; then
-    for pubkey in "${pubkeys_to_import[@]}"; do
-      log info "importing pubkey ${pubkey}"
-      post_client_pubkey "${pubkey}"
-    done
+    log info "importing pubkeys ${pubkeys_to_import[*]}"
+    post_client_pubkeys "${pubkeys_to_import[*]}"
   else
     log debug "no pubkeys to import"
   fi
