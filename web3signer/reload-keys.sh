@@ -144,7 +144,7 @@ function post_client_pubkeys() {
   local request response http_code content
 
   request="{\"remote_keys\": ["
-  for pubkey in "${@:1}"; do
+  for pubkey in "${@}"; do
     request+="{\"pubkey\": \"$pubkey\", \"url\": \"${WEB3SIGNER_API}\"},"
   done
   request=${request::-1}
