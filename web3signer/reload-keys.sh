@@ -208,7 +208,7 @@ function compare_public_keys() {
   done
   if [[ ${#pubkeys_to_import[@]} -ne 0 ]]; then
     log info "importing pubkeys ${pubkeys_to_import[*]}"
-    post_client_pubkeys "${pubkeys_to_import[*]}"
+    post_client_pubkeys ${pubkeys_to_import[*]}
   else
     log debug "no pubkeys to import"
   fi
