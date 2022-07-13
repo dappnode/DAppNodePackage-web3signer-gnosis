@@ -16,10 +16,10 @@
   "categories": ["Blockchain", "ETH2.0"],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ConsenSys/web3signer.git"
+    "url": "git+https://github.com/dappnode/DAppNodePackage-web3signer-gnosis.git"
   },
   "bugs": {
-    "url": "https://github.com/ConsenSys/web3signer/issues"
+    "url": "https://github.com/dappnode/DAppNodePackage-web3signer-gnosis/issues"
   },
   "links": {
     "ui": "http://ui.web3signer-gnosis.dappnode?signer_url=http://web3signer.web3signer-gnosis.dappnode:9000",
