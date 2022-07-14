@@ -63,6 +63,9 @@ disown
 
 # inotify reload keys
 while inotifywait -r -e modify,create,delete "$KEYFILES_DIR"; do
+  # Add a delay to prevent from executing the script too often
+  # sleep before the script to execute the script with the more pubkeys imported/deleted possible
+  sleep 5
   /usr/bin/reload-keys.sh
 done &
 disown
