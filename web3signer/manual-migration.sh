@@ -68,6 +68,7 @@ function ensure_requirements() {
 # Import validators with request body file
 # - Docs: https://consensys.github.io/web3signer/web3signer-eth2.html#operation/KEYMANAGER_IMPORT
 function import_validators() {
+  # Import one by one. See https://github.com/dappnode/web3signer-import-one-by-one
   import-one-by-one --keystores-path "$MANUAL_MIGRATION_DIR" --wallet-password-path "$BACKUP_WALLETPASSWORD_FILE" --network gnosis
   echo "${INFO} validators imported"
 }
