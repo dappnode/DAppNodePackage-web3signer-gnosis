@@ -15,7 +15,7 @@ services:
       context: web3signer
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 22.8.0
+        UPSTREAM_VERSION: 22.8.1
     environment:
       ETH2_CLIENT: ""
       LOG_TYPE: INFO
@@ -34,7 +34,7 @@ services:
       context: postgres
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 22.8.0
+        UPSTREAM_VERSION: 22.8.1
     user: postgres
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
