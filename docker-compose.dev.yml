@@ -15,7 +15,7 @@ services:
       args:
         UPSTREAM_VERSION: 21.10.6
     environment:
-      KEYFILES_DIR: /opt/web3signer/keyfiles
+      KEYFILES_DIR: /data/keyfiles
       SIGNER_PORT: 9000
     volumes:
       - "web3signer_data:/opt/web3signer"
