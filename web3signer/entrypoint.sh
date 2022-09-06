@@ -55,6 +55,10 @@ env >>/etc/environment
 mkdir -p "$KEYFILES_DIR"
 mkdir -p "/opt/web3signer/manual_migration"
 
+if grep -Fq "/opt/web3signer/keyfiles" $KEYFILES_DIR/*.yaml ;then
+  sed -i "s|/opt/web3signer/keyfiles|$KEYFILES_DIR|g" *.yaml
+fi
+
 # inotify manual migration
 while inotifywait -e close_write --include 'backup\.zip' /opt/web3signer; do
   /usr/bin/manual-migration.sh
