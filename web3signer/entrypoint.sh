@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export KEYFILES_DIR="/opt/web3signer/keyfiles"
+export KEYFILES_DIR="/data/keyfiles"
 export NETWORK="gnosis"
 export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
 
