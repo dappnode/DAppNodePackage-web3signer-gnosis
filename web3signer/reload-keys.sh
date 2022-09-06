@@ -1,5 +1,7 @@
 #!/bin/bash
 
+REQUEST_FILE=/tmp/request.json
+
 [[ "${ETH2_CLIENT}" == "teku" ]] && CERT_REQUEST="-k --cert-type P12 --cert /security/teku/cert/teku_client_keystore.p12:dappnode"
 
 # Log level function: $1 = logType $2 = message
@@ -150,7 +152,9 @@ function post_client_pubkeys() {
   request=${request::-1}
   request+="]}"
 
-  response=$(curl -s -w "%{http_code}" ${CERT_REQUEST} -X POST -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data "${request}" "${CLIENT_API}/eth/v1/remotekeys")
+  echo $request >$REQUEST_FILE
+
+  response=$(curl -s -w "%{http_code}" ${CERT_REQUEST} -X POST -H "Authorization: Bearer ${AUTH_TOKEN}" -H "Content-Type: application/json" --data @"${REQUEST_FILE}" "${CLIENT_API}/eth/v1/remotekeys")
   http_code=${response: -3}
   content=$(echo "${response}" | head -c-4)
   response_middleware "$http_code" "$content" "$ETH2_CLIENT"
@@ -258,5 +262,8 @@ log debug "client public keys: ${CLIENT_PUBKEYS[*]}"
 
 log debug "comparing public keys"
 compare_public_keys
+
+log debug "removing request file"
+rm -f "${REQUEST_FILE}"
 
 exit 0
