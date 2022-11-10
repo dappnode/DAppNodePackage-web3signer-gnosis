@@ -1,12 +1,23 @@
-FROM node:14-alpine3.14 as build
-ENV REACT_APP_NETWORK=gnosis
-WORKDIR /app
-RUN apk update && apk add git && git clone https://github.com/dappnode/eth2-keymanager-frontend-dappnode-temporary.git
-WORKDIR /app/eth2-keymanager-frontend-dappnode-temporary
-RUN npm install --globally react-scripts
-RUN yarn
-RUN yarn run build
+FROM ghcr.io/dappnode/keymanager-ui:0.1.1 as build
 
 FROM nginx:1.21.6-alpine
-COPY --from=build /app/eth2-keymanager-frontend-dappnode-temporary/build/ /usr/share/nginx/html/
+
+# Static build
+COPY --from=build /app/build /usr/share/nginx/html/
+
+# Default port exposure
 EXPOSE 80
+
+# Copy .env file and shell script to container
+WORKDIR /usr/share/nginx/html
+COPY ./env.sh .
+COPY .env .
+
+# Add bash
+RUN apk add --no-cache bash
+
+# Make our shell script executable
+RUN chmod +x env.sh
+
+# Start Nginx server
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
