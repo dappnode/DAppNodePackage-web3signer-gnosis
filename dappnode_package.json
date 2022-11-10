@@ -1,6 +1,6 @@
 {
   "name": "web3signer-gnosis.dnp.dappnode.eth",
-  "version": "0.1.0",
+  "version": "0.1.8",
   "upstreamVersion": "22.8.1",
   "architectures": ["linux/amd64"],
   "upstreamRepo": "ConsenSys/web3signer",
@@ -22,12 +22,19 @@
     "url": "https://github.com/dappnode/DAppNodePackage-web3signer-gnosis/issues"
   },
   "links": {
-    "ui": "http://ui.web3signer-gnosis.dappnode?signer_url=http://web3signer.web3signer-gnosis.dappnode:9000",
+    "ui": "http://ui.web3signer-gnosis.dappnode",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
     "readme": "https://github.com/ConsenSys/web3signer/blob/master/README.md"
   },
   "license": "Apache-2.0",
   "requirements": {
     "minimumDappnodeVersion": "0.2.56"
-  }
+  },
+  "globalEnvs": [
+    {
+      "envs": ["CONSENSUS_CLIENT_GNOSIS", "EXECUTION_CLIENT_GNOSIS"],
+      "services": ["ui"]
+    },
+    { "envs": ["CONSENSUS_CLIENT_GNOSIS"], "services": ["web3signer"] }
+  ]
 }
