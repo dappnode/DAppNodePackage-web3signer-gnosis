@@ -1,4 +1,4 @@
-FROM ghcr.io/dappnode/keymanager-ui:0.1.1 as build
+FROM ghcr.io/dappnode/keymanager-ui:0.1.2 as build
 
 FROM nginx:1.21.6-alpine
 
