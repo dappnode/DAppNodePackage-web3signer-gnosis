@@ -28,7 +28,7 @@
   },
   "license": "Apache-2.0",
   "requirements": {
-    "minimumDappnodeVersion": "0.2.56"
+    "minimumDappnodeVersion": "0.2.62"
   },
   "globalEnvs": [
     {
