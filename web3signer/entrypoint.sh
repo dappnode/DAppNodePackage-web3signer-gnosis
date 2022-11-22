@@ -4,23 +4,23 @@ export KEYFILES_DIR="/data/keyfiles"
 export NETWORK="gnosis"
 export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
 
-# Assign proper value to ETH2_CLIENT. The UI uses the web3signer domain in the Header "Host"
-case "$ETH2_CLIENT" in
-"prysm")
+# Assign proper value to _DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS. The UI uses the web3signer domain in the Header "Host"
+case "$_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS" in
+"gnosis-beacon-chain-prysm.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.gnosis-beacon-chain-prysm.dappnode"
   export BEACON_NODE_API="http://beacon-chain.gnosis-beacon-chain-prysm.dappnode:3500"
   export CLIENT_API="http://validator.gnosis-beacon-chain-prysm.dappnode:3500"
   export TOKEN_FILE="/security/prysm/auth-token"
   export CLIENTS_TO_REMOVE=(teku lighthouse)
   ;;
-"teku")
+"teku-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.teku-gnosis.dappnode"
   export BEACON_NODE_API="http://beacon-chain.teku-gnosis.dappnode:3500"
   export CLIENT_API="https://validator.teku-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/teku/validator-api-bearer"
   export CLIENTS_TO_REMOVE=(lighthouse prysm)
   ;;
-"lighthouse")
+"lighthouse-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.lighthouse-gnosis.dappnode"
   export BEACON_NODE_API="http://beacon-chain.lighthouse-gnosis.dappnode:3500"
   export CLIENT_API="http://validator.lighthouse-gnosis.dappnode:3500"
@@ -28,7 +28,7 @@ case "$ETH2_CLIENT" in
   export CLIENTS_TO_REMOVE=(teku prysm)
   ;;
 *)
-  echo "ETH2_CLIENT env is not set propertly"
+  echo "_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS env is not set propertly"
   exit 1
   ;;
 esac
