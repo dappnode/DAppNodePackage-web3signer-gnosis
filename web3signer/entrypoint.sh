@@ -97,6 +97,6 @@ exec /opt/web3signer/bin/web3signer \
   --slashing-protection-db-username=postgres \
   --slashing-protection-db-password=gnosis \
   --slashing-protection-pruning-enabled=true \
-  --slashing-protection-pruning-epochs-to-keep=5000 \
+  --slashing-protection-pruning-epochs-to-keep=225 \
   --key-manager-api-enabled=true \
   ${EXTRA_OPTS}
