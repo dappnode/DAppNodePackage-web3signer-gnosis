@@ -15,7 +15,7 @@ services:
       context: web3signer
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 23.1.0
+        UPSTREAM_VERSION: 23.2.0
     environment:
       LOG_TYPE: INFO
       EXTRA_OPTS: ""
@@ -33,7 +33,7 @@ services:
       context: postgres
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 23.1.0
+        UPSTREAM_VERSION: 23.2.0
     user: postgres
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
