@@ -39,5 +39,12 @@
       "envs": ["CONSENSUS_CLIENT_GNOSIS"],
       "services": ["web3signer"]
     }
+  ],
+  "backup": [
+    {
+      "name": "keystores",
+      "path": "/data/keyfiles",
+      "service": "web3signer"
+    }
   ]
 }
