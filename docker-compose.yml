@@ -1,12 +1,25 @@
 version: "3.5"
 services:
-  ui:
-    image: "ui.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
+  brain:
+    image: "brain.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
     build:
-      context: ui
+      context: brain
+    depends_on:
+      - web3signer
+    environment:
+      - LOG_LEVEL=debug
     restart: unless-stopped
+    volumes:
+      - "brain_data:/app/data"
   web3signer:
     image: "web3signer.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
+    healthcheck:
+      test: >-
+        curl -H 'Host: web3signer.web3signer-prater.dappnode'
+        http://localhost:9000/healthcheck
+      interval: 5s
+      timeout: 5s
+      retries: 5
     depends_on:
       - postgres
     security_opt:
@@ -17,7 +30,6 @@ services:
       args:
         UPSTREAM_VERSION: 23.2.0
     environment:
-      LOG_TYPE: INFO
       EXTRA_OPTS: ""
     volumes:
       - "web3signer_data:/data"
@@ -40,6 +52,7 @@ services:
       - "postgres_migrations:/docker-entrypoint-initdb.d"
     restart: unless-stopped
 volumes:
+  brain_data: {}
   web3signer_data: {}
   postgres_data: {}
   postgres_migrations: {}
