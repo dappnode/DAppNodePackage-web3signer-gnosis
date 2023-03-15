@@ -49,10 +49,8 @@ services:
     user: postgres
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
-      - "postgres_migrations:/docker-entrypoint-initdb.d"
     restart: unless-stopped
 volumes:
   brain_data: {}
   web3signer_data: {}
   postgres_data: {}
-  postgres_migrations: {}
