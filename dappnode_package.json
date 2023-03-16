@@ -22,22 +22,18 @@
     "url": "https://github.com/dappnode/DAppNodePackage-web3signer-gnosis/issues"
   },
   "links": {
-    "ui": "http://brain.web3signer-gnosis.dappnode",
+    "ui": "http://ui.web3signer-gnosis.dappnode",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
     "readme": "https://github.com/ConsenSys/web3signer/blob/master/README.md"
   },
   "license": "Apache-2.0",
   "requirements": {
-    "minimumDappnodeVersion": "0.2.68"
+    "minimumDappnodeVersion": "0.2.62"
   },
   "globalEnvs": [
     {
-      "envs": [
-        "CONSENSUS_CLIENT_GNOSIS",
-        "EXECUTION_CLIENT_GNOSIS",
-        "FEE_RECIPIENT_GNOSIS"
-      ],
-      "services": ["brain"]
+      "envs": ["CONSENSUS_CLIENT_GNOSIS", "EXECUTION_CLIENT_GNOSIS"],
+      "services": ["ui"]
     },
     {
       "envs": ["CONSENSUS_CLIENT_GNOSIS"],
@@ -49,11 +45,6 @@
       "name": "keystores",
       "path": "/data/keyfiles",
       "service": "web3signer"
-    },
-    {
-      "name": "brain-db",
-      "path": "/app/brain-db.json",
-      "service": "brain"
     }
   ]
 }

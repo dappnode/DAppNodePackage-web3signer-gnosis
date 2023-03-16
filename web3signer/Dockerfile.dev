@@ -1,0 +1,31 @@
+ARG UPSTREAM_VERSION
+
+###########
+# BUILDER #
+###########
+
+FROM openjdk:11 as builder
+WORKDIR /usr/src/app
+RUN apt update && apt install git -y && git clone https://github.com/ConsenSys/web3signer.git
+WORKDIR /usr/src/app/web3signer 
+RUN git fetch origin && ./gradlew clean assemble && tar -xzf ./build/distributions/web3signer-develop.tar.gz
+
+##############
+# WEB3SIGNER #
+##############
+
+FROM consensys/web3signer:$UPSTREAM_VERSION
+RUN apt update && apt install cron inotify-tools jq ca-certificates --yes
+# Copy web3signer keymanager binary
+COPY --from=builder /usr/src/app/web3signer/web3signer-develop /opt/web3signer
+
+COPY /security /security
+COPY reload-keys.sh /usr/bin/reload-keys.sh
+COPY reload-keys-cron /etc/cron.d/
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+# Apply cron job
+RUN crontab /etc/cron.d/reload-keys-cron
+
+EXPOSE 9000
+ENTRYPOINT /bin/bash /usr/bin/entrypoint.sh
