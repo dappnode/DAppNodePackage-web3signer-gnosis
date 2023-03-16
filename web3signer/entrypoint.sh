@@ -28,10 +28,28 @@ case "$_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS" in
   export CLIENTS_TO_REMOVE=(teku prysm)
   ;;
 *)
-  echo "_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS env is not set properly"
+  echo "_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS env is not set propertly"
   exit 1
   ;;
 esac
+
+if [[ $LOG_TYPE == "DEBUG" ]]; then
+  export LOG_LEVEL=0
+elif [[ $LOG_TYPE == "INFO" ]]; then
+  export LOG_LEVEL=1
+elif [[ $LOG_TYPE == "WARN" ]]; then
+  export LOG_LEVEL=2
+elif [[ $LOG_TYPE == "ERROR" ]]; then
+  export LOG_LEVEL=3
+else
+  export LOG_LEVEL=1
+fi
+
+# Loads envs into /etc/environment to be used by the reload-keys.sh script
+env >>/etc/environment
+
+# delete all the pubkeys from the all the clients (excluding the client selected)
+/usr/bin/delete-keys.sh "${CLIENTS_TO_REMOVE[@]}"
 
 # IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
 mkdir -p "$KEYFILES_DIR"
@@ -41,13 +59,32 @@ if grep -Fq "/opt/web3signer/keyfiles" ${KEYFILES_DIR}/*.yaml ;then
   sed -i "s|/opt/web3signer/keyfiles|$KEYFILES_DIR|g" ${KEYFILES_DIR}/*.yaml
 fi
 
+# inotify manual migration
+while inotifywait -e close_write --include 'backup\.zip' /opt/web3signer; do
+  /usr/bin/manual-migration.sh
+done &
+disown
+
+# inotify reload keys
+while inotifywait -r -e modify,create,delete "$KEYFILES_DIR"; do
+  # Add a delay to prevent from executing the script too often
+  # sleep before the script to execute the script with the more pubkeys imported/deleted possible
+  sleep 5
+  /usr/bin/reload-keys.sh
+done &
+disown
+
+# start cron
+cron -f &
+disown
+
 # Run web3signer binary
 # - Run key manager (it may change in the future): --key-manager-api-enabled=true
 exec /opt/web3signer/bin/web3signer \
   --key-store-path="$KEYFILES_DIR" \
   --http-listen-port=9000 \
   --http-listen-host=0.0.0.0 \
-  --http-host-allowlist="web3signer.web3signer-gnosis.dappnode,brain.web3signer-gnosis.dappnode,$ETH2_CLIENT_DNS" \
+  --http-host-allowlist="web3signer.web3signer-gnosis.dappnode,web3signer.web3signer-gnosis.dappnode,prysm.migration-gnosis.dappnode,$ETH2_CLIENT_DNS" \
   --http-cors-origins=* \
   --metrics-enabled=true \
   --metrics-host 0.0.0.0 \
