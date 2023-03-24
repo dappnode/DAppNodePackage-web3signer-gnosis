@@ -5,7 +5,8 @@ services:
     build:
       context: brain
     depends_on:
-      - web3signer
+      web3signer:
+        condition: service_healthy
     environment:
       - LOG_LEVEL=debug
     restart: unless-stopped
@@ -21,19 +22,30 @@ services:
       timeout: 5s
       retries: 5
     depends_on:
-      - postgres
+      flyway:
+        condition: service_completed_successfully
     security_opt:
       - "seccomp:unconfined"
     build:
       context: web3signer
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 23.2.0
+        UPSTREAM_VERSION: 23.3.0
     environment:
       EXTRA_OPTS: ""
     volumes:
       - "web3signer_data:/data"
     restart: unless-stopped
+  flyway:
+    build:
+      context: flyway
+      dockerfile: Dockerfile
+      args:
+        UPSTREAM_VERSION: 23.3.0
+    depends_on:
+      postgres:
+        condition: service_started
+    image: "flyway.web3signer-prater.dnp.dappnode.eth:0.1.8"
   postgres:
     image: "postgres.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
     healthcheck:
@@ -45,7 +57,7 @@ services:
       context: postgres
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 23.2.0
+        UPSTREAM_VERSION: 23.3.0
     user: postgres
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
