@@ -18,7 +18,7 @@ RUN wget -q https://github.com/ConsenSys/web3signer/archive/refs/tags/${UPSTREAM
 FROM flyway/flyway:9.16.1-alpine
 ARG UPSTREAM_VERSION
 RUN apk update && apk add postgresql-client
-COPY --from=postgres-migrations /usr/src/app/web3signer-${UPSTREAM_VERSION}/slashing-protection/src/main/resources/migrations/postgresql/* /flyway/sql/
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh && rm /flyway/sql/put-your-sql-migrations-here.txt
+COPY --from=postgres-migrations /usr/src/app/web3signer-${UPSTREAM_VERSION}/slashing-protection/src/main/resources/migrations/postgresql/* /flyway/sql/
 ENTRYPOINT ["entrypoint.sh"]
