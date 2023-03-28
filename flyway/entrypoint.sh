@@ -24,4 +24,5 @@ else
   echo "Database version is less than the latest migration file version. Migrating..."
   flyway -baselineOnMigrate="true" -baselineVersion="${DATABASE_VERSION}" -url=jdbc:postgresql://postgres.web3signer-gnosis.dappnode:5432/web3signer-gnosis -user=postgres -password=gnosis -connectRetries=60 migrate
   echo "Migration completed"
-  exit 
+  exit 0
+fi
