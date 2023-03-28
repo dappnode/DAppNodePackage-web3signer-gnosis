@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.8"
 services:
   brain:
     image: "brain.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
@@ -16,11 +16,11 @@ services:
     image: "web3signer.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
     healthcheck:
       test: >-
-        curl -H 'Host: web3signer.web3signer-prater.dappnode'
+        curl -H 'Host: web3signer.web3signer-gnosis.dappnode'
         http://localhost:9000/healthcheck
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 100
     depends_on:
       flyway:
         condition: service_completed_successfully
