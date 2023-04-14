@@ -1,2 +1,2 @@
-FROM ghcr.io/dappnode/staking-brain-webpack:0.1.5
+FROM ghcr.io/dappnode/staking-brain-webpack:0.1.6
 ENV NETWORK=gnosis
