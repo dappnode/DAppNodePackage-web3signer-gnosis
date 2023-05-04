@@ -18,6 +18,16 @@ jobs:
       - uses: actions/checkout@v2
       - run: npx @dappnode/dappnodesdk build --skip_save
 
+  e2e-test:
+    runs-on: gnosis
+    needs: build-test
+    name: End to end tests
+    steps:
+      - uses: actions/checkout@v2
+      - run: npx @dappnode/dappnodesdk@latest github-action test-end-to-end --errorLogsTimeout 120 --healthCheckUrl http://web3signer.web3signer-gnosis.dappnode:9000/upcheck --network gnosis
+        env:
+          VALIDATOR_INDEX: ${{ secrets.GNOSIS_VALIDATOR_INDEX }}
+          
   release:
     name: Release
     runs-on: ubuntu-latest
