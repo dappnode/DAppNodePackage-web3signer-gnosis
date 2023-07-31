@@ -63,6 +63,7 @@ exec /opt/web3signer/bin/web3signer \
   --idle-connection-timeout-seconds=900 \
   eth2 \
   --network=gnosis \
+  --Xnetwork-capella-fork-epoch=648704 \
   --slashing-protection-db-url=jdbc:postgresql://postgres.web3signer-gnosis.dappnode:5432/web3signer-gnosis \
   --slashing-protection-db-username=postgres \
   --slashing-protection-db-password=gnosis \
