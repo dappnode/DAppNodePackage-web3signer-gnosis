@@ -28,7 +28,7 @@
   },
   "license": "Apache-2.0",
   "requirements": {
-    "minimumDappnodeVersion": "0.2.69"
+    "minimumDappnodeVersion": "0.2.84"
   },
   "warnings": {
     "onMajorUpdate": "This update will do a migration, it is recommended to have a backup of your keystores (http://my.dappnode/#/packages/web3signer-gnosis.dnp.dappnode.eth/backup)."
@@ -37,8 +37,7 @@
     {
       "envs": [
         "CONSENSUS_CLIENT_GNOSIS",
-        "EXECUTION_CLIENT_GNOSIS",
-        "FEE_RECIPIENT_GNOSIS"
+        "EXECUTION_CLIENT_GNOSIS"
       ],
       "services": ["brain"]
     },
