@@ -20,10 +20,10 @@ FROM postgres:14.1-alpine3.15
 
 ARG UPSTREAM_VERSION
 
-ENV POSTGRES_PASSWORD=password \
-    PGPASSWORD=password \
+ENV POSTGRES_PASSWORD=gnosis \
+    PGPASSWORD=gnosis \
     POSTGRES_USER=postgres \ 
-    POSTGRES_DB=web3signer \
+    POSTGRES_DB=web3signer-gnosis \
     INITDB_DIR=/docker-entrypoint-initdb.d/
 
 COPY rename_files.sh /usr/local/bin/rename_files.sh

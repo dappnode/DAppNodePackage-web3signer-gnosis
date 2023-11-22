@@ -64,9 +64,9 @@ exec /opt/web3signer/bin/web3signer \
   eth2 \
   --network=gnosis \
   --Xnetwork-capella-fork-epoch=648704 \
-  --slashing-protection-db-url=jdbc:postgresql://postgres.web3signer-gnosis.dappnode:5432/web3signer \
+  --slashing-protection-db-url=jdbc:postgresql://postgres.web3signer-gnosis.dappnode:5432/web3signer-gnosis \
   --slashing-protection-db-username=postgres \
-  --slashing-protection-db-password=password \
+  --slashing-protection-db-password=gnosis \
   --slashing-protection-pruning-enabled=true \
   --slashing-protection-pruning-epochs-to-keep=500 \
   --key-manager-api-enabled=true \
