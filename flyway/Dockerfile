@@ -1,24 +1,26 @@
-ARG UPSTREAM_VERSION
-
 ##############
 # MIGRATIONS #
 ##############
-FROM debian:bullseye-slim as postgres-migrations
+FROM alpine:3.15.10 as postgres-migrations
 ARG UPSTREAM_VERSION
 WORKDIR /usr/src/app
-RUN apt update && apt install -y wget
-# Get migrations from consensys web3signer repo
-# path is /usr/src/app/web3signer-21.10.0/slashing-protection/src/main/resources/migrations/postgresql
+
+# Install wget and other dependencies, if necessary
+RUN apk --no-cache add wget
+
+# Get migrations from ConsenSys web3signer repository
 RUN wget -q https://github.com/ConsenSys/web3signer/archive/refs/tags/${UPSTREAM_VERSION}.tar.gz && \
-    tar -xvf ${UPSTREAM_VERSION}.tar.gz
+    tar -xvf ${UPSTREAM_VERSION}.tar.gz && \
+    rm ${UPSTREAM_VERSION}.tar.gz
 
 ##########
 # FLYWAY #
 ##########
 FROM flyway/flyway:9.16.1-alpine
 ARG UPSTREAM_VERSION
-RUN apk update && apk add postgresql-client
+
+RUN apk update && apk --no-cache add postgresql-client
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh && rm /flyway/sql/put-your-sql-migrations-here.txt
+RUN chmod +x /usr/local/bin/entrypoint.sh && rm -rf /flyway/sql/*
 COPY --from=postgres-migrations /usr/src/app/web3signer-${UPSTREAM_VERSION}/slashing-protection/src/main/resources/migrations/postgresql/* /flyway/sql/
 ENTRYPOINT ["entrypoint.sh"]
