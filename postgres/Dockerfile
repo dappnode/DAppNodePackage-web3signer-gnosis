@@ -16,7 +16,7 @@ RUN wget -q https://github.com/ConsenSys/web3signer/archive/refs/tags/${UPSTREAM
 ############
 # POSTGRES #
 ############
-FROM postgres:14.1-alpine3.15
+FROM postgres:14.1-bullseye
 
 ARG UPSTREAM_VERSION
 
@@ -26,12 +26,10 @@ ENV POSTGRES_PASSWORD=gnosis \
     POSTGRES_DB=web3signer-gnosis \
     INITDB_DIR=/docker-entrypoint-initdb.d/
 
-COPY rename_files.sh /usr/local/bin/rename_files.sh
+RUN apt update && apt install -y rename
 
 COPY --from=postgres-migrations /usr/src/app/web3signer-${UPSTREAM_VERSION}/slashing-protection/src/main/resources/migrations/postgresql/* ${INITDB_DIR}
 
-RUN /usr/local/bin/rename_files.sh
-
-USER postgres
+RUN rename 's/(\d+)(?=.*\.)/sprintf("%03d",$1)/eg' /docker-entrypoint-initdb.d/*
 
 CMD ["postgres"]
