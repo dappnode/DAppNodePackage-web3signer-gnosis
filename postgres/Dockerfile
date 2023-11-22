@@ -1,37 +1,37 @@
-ARG UPSTREAM_VERSION
-
-##########
-# FLYWAY #
-##########
-#FROM flyway/flyway:8.0.5-alpine as binary-flyway
-#COPY --from=binary-flyway /flyway/flyway /usr/local/bin/flyway
-
 ##############
 # MIGRATIONS #
 ##############
-FROM debian:bullseye-slim as postgres-migrations
+FROM alpine:3.15.10 as postgres-migrations
 ARG UPSTREAM_VERSION
 WORKDIR /usr/src/app
 
-RUN apt update && apt install -y wget
-# Get migrations from consensys web3signer repo
-# path is /usr/src/app/web3signer-21.10.0/slashing-protection/src/main/resources/migrations/postgresql
+# Install wget and other dependencies, if necessary
+RUN apk --no-cache add wget
+
+# Get migrations from ConsenSys web3signer repository
 RUN wget -q https://github.com/ConsenSys/web3signer/archive/refs/tags/${UPSTREAM_VERSION}.tar.gz && \
-    tar -xvf ${UPSTREAM_VERSION}.tar.gz
+    tar -xvf ${UPSTREAM_VERSION}.tar.gz && \
+    rm ${UPSTREAM_VERSION}.tar.gz
 
 ############
 # POSTGRES #
 ############
-FROM postgres:14.1-bullseye
-ARG UPSTREAM_VERSION
-ENV POSTGRES_PASSWORD=gnosis
-ENV PGPASSWORD=gnosis
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_DB=web3signer-gnosis
-RUN apt update && apt install -y rename
+FROM postgres:14.1-alpine3.15
 
-COPY --from=postgres-migrations /usr/src/app/web3signer-${UPSTREAM_VERSION}/slashing-protection/src/main/resources/migrations/postgresql/* /docker-entrypoint-initdb.d/
-# Rename scripts to be executed in alfabetical order
-RUN rename 's/(\d+)(?=.*\.)/sprintf("%03d",$1)/eg' /docker-entrypoint-initdb.d/*
+ARG UPSTREAM_VERSION
+
+ENV POSTGRES_PASSWORD=gnosis \
+    PGPASSWORD=gnosis \
+    POSTGRES_USER=postgres \ 
+    POSTGRES_DB=web3signer-gnosis \
+    INITDB_DIR=/docker-entrypoint-initdb.d/
+
+COPY rename_files.sh /usr/local/bin/rename_files.sh
+
+COPY --from=postgres-migrations /usr/src/app/web3signer-${UPSTREAM_VERSION}/slashing-protection/src/main/resources/migrations/postgresql/* ${INITDB_DIR}
+
+RUN /usr/local/bin/rename_files.sh
+
+USER postgres
 
 CMD ["postgres"]

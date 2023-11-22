@@ -44,7 +44,7 @@ esac
 mkdir -p "$KEYFILES_DIR"
 mkdir -p "/opt/web3signer/manual_migration"
 
-if grep -Fq "/opt/web3signer/keyfiles" ${KEYFILES_DIR}/*.yaml ;then
+if grep -Fq "/opt/web3signer/keyfiles" ${KEYFILES_DIR}/*.yaml; then
   sed -i "s|/opt/web3signer/keyfiles|$KEYFILES_DIR|g" ${KEYFILES_DIR}/*.yaml
 fi
 
