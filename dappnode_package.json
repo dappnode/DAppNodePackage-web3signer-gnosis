@@ -37,8 +37,7 @@
     {
       "envs": [
         "CONSENSUS_CLIENT_GNOSIS",
-        "EXECUTION_CLIENT_GNOSIS",
-        "FEE_RECIPIENT_GNOSIS"
+        "EXECUTION_CLIENT_GNOSIS"
       ],
       "services": ["brain"]
     },
