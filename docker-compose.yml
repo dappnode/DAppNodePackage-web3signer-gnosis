@@ -29,7 +29,7 @@ services:
       args:
         UPSTREAM_VERSION: 23.11.0
     environment:
-      JAVA_OPTS: "-Xmx4g"
+      JAVA_OPTS: "-Xmx6g"
       EXTRA_OPTS: ""
     volumes:
       - "web3signer_data:/data"
