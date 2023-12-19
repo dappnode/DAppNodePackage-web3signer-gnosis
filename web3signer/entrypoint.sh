@@ -11,28 +11,35 @@ case "$_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS" in
   export BEACON_NODE_API="http://beacon-chain.gnosis-beacon-chain-prysm.dappnode:3500"
   export CLIENT_API="http://validator.gnosis-beacon-chain-prysm.dappnode:3500"
   export TOKEN_FILE="/security/prysm/auth-token"
-  export CLIENTS_TO_REMOVE=(teku lodestar lighthouse)
+  export CLIENTS_TO_REMOVE=(teku lodestar lighthouse nimbus)
   ;;
 "teku-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.teku-gnosis.dappnode"
   export BEACON_NODE_API="http://beacon-chain.teku-gnosis.dappnode:3500"
   export CLIENT_API="https://validator.teku-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/teku/validator-api-bearer"
-  export CLIENTS_TO_REMOVE=(lighthouse lodestar prysm)
+  export CLIENTS_TO_REMOVE=(lighthouse lodestar prysm nimbus)
   ;;
 "lighthouse-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.lighthouse-gnosis.dappnode"
   export BEACON_NODE_API="http://beacon-chain.lighthouse-gnosis.dappnode:3500"
   export CLIENT_API="http://validator.lighthouse-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/lighthouse/api-token.txt"
-  export CLIENTS_TO_REMOVE=(teku lodestar prysm)
+  export CLIENTS_TO_REMOVE=(teku lodestar prysm nimbus)
   ;;
 "lodestar-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.lodestar-gnosis.dappnode"
   export BEACON_NODE_API="http://beacon-chain.lodestar-gnosis.dappnode:3500"
   export CLIENT_API="http://validator.lodestar-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/lodestar/api-token.txt"
-  export CLIENTS_TO_REMOVE=(teku lighthouse prysm)
+  export CLIENTS_TO_REMOVE=(teku lighthouse prysm nimbus)
+  ;;
+  "nimbus-gnosis.dnp.dappnode.eth")
+   ETH2_CLIENT_DNS="validator.nimbus-gnosis.dappnode"
+  export BEACON_NODE_API="http://beacon-chain.nimbus-gnosis.dappnode:3500"
+  export CLIENT_API="http://validator.nimbus-gnosis.dappnode:3500"
+  export TOKEN_FILE="/security/nimbus/auth-token"
+  export CLIENTS_TO_REMOVE=(teku lighthouse prysm lodestar)
   ;;
 *)
   echo "_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS env is not set properly"
