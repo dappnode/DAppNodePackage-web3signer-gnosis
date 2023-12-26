@@ -35,9 +35,9 @@ case "$_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS" in
   export CLIENTS_TO_REMOVE=(teku lighthouse prysm nimbus)
   ;;
 "nimbus-gnosis.dnp.dappnode.eth")
-  ETH2_CLIENT_DNS="validator.nimbus-gnosis.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.nimbus-gnosis.dappnode:3500"
-  export CLIENT_API="http://validator.nimbus-gnosis.dappnode:3500"
+  ETH2_CLIENT_DNS="beacon-validator.nimbus-gnosis.dappnode"
+  export BEACON_NODE_API="http://beacon-validator.nimbus-gnosis.dappnode:4500"
+  export CLIENT_API="http://beacon-validator.nimbus-gnosis.dappnode:3500"
   export TOKEN_FILE="/security/nimbus/auth-token"
   export CLIENTS_TO_REMOVE=(teku lighthouse prysm lodestar)
   ;;
