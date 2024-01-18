@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   brain:
-    image: "brain.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
+    image: "brain.web3signer-gnosis.dnp.dappnode.eth:1.0.8"
     build:
       context: brain
     environment:
@@ -10,7 +10,7 @@ services:
     volumes:
       - "brain_data:/app/data"
   web3signer:
-    image: "web3signer.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
+    image: "web3signer.web3signer-gnosis.dnp.dappnode.eth:1.0.8"
     healthcheck:
       test: >-
         curl -H 'Host: web3signer.web3signer-gnosis.dappnode'
@@ -43,10 +43,10 @@ services:
     depends_on:
       postgres:
         condition: service_started
-    image: "flyway.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
+    image: "flyway.web3signer-gnosis.dnp.dappnode.eth:1.0.8"
     restart: on-failure
   postgres:
-    image: "postgres.web3signer-gnosis.dnp.dappnode.eth:0.1.8"
+    image: "postgres.web3signer-gnosis.dnp.dappnode.eth:1.0.8"
     healthcheck:
       test: pg_isready -U postgres
       interval: 5s
