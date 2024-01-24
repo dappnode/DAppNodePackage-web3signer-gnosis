@@ -1,2 +1,2 @@
-FROM ghcr.io/dappnode/staking-brain:0.1.13
+FROM ghcr.io/dappnode/staking-brain:0.1.14
 ENV NETWORK=gnosis
