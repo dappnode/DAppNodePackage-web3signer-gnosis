@@ -31,6 +31,7 @@ services:
     environment:
       JAVA_OPTS: "-Xmx6g"
       EXTRA_OPTS: ""
+      WEB3SIGNER_VERTX_WORKER_POOL_SIZE: "20"
     volumes:
       - "web3signer_data:/data"
     restart: unless-stopped
