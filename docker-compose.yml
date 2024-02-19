@@ -27,7 +27,7 @@ services:
       context: web3signer
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 24.1.1
+        UPSTREAM_VERSION: 24.2.0
     environment:
       JAVA_OPTS: "-Xmx6g"
       EXTRA_OPTS: ""
@@ -40,7 +40,7 @@ services:
       context: flyway
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 24.1.1
+        UPSTREAM_VERSION: 24.2.0
     depends_on:
       postgres:
         condition: service_started
@@ -57,7 +57,7 @@ services:
       context: postgres
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 24.1.1
+        UPSTREAM_VERSION: 24.2.0
     user: postgres
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
