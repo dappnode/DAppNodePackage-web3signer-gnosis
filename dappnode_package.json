@@ -28,10 +28,7 @@
   },
   "license": "Apache-2.0",
   "requirements": {
-    "minimumDappnodeVersion": "0.2.89"
-  },
-  "optionalDependencies": {
-    "prysm-prater.dnp.dappnode.eth": "1.0.28"
+    "minimumDappnodeVersion": "0.2.69"
   },
   "warnings": {
     "onMajorUpdate": "This update will do a migration, it is recommended to have a backup of your keystores (http://my.dappnode/#/packages/web3signer-gnosis.dnp.dappnode.eth/backup)."
