@@ -8,38 +8,18 @@ export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
 case "$_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS" in
 "gnosis-beacon-chain-prysm.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.gnosis-beacon-chain-prysm.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.gnosis-beacon-chain-prysm.dappnode:3500"
-  export CLIENT_API="http://validator.gnosis-beacon-chain-prysm.dappnode:3500"
-  export TOKEN_FILE="/security/prysm/auth-token"
-  export CLIENTS_TO_REMOVE=(teku lodestar lighthouse nimbus)
   ;;
 "teku-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.teku-gnosis.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.teku-gnosis.dappnode:3500"
-  export CLIENT_API="https://validator.teku-gnosis.dappnode:3500"
-  export TOKEN_FILE="/security/teku/validator-api-bearer"
-  export CLIENTS_TO_REMOVE=(lighthouse lodestar prysm nimbus)
   ;;
 "lighthouse-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.lighthouse-gnosis.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.lighthouse-gnosis.dappnode:3500"
-  export CLIENT_API="http://validator.lighthouse-gnosis.dappnode:3500"
-  export TOKEN_FILE="/security/lighthouse/api-token.txt"
-  export CLIENTS_TO_REMOVE=(teku lodestar prysm nimbus)
   ;;
 "lodestar-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="validator.lodestar-gnosis.dappnode"
-  export BEACON_NODE_API="http://beacon-chain.lodestar-gnosis.dappnode:3500"
-  export CLIENT_API="http://validator.lodestar-gnosis.dappnode:3500"
-  export TOKEN_FILE="/security/lodestar/api-token.txt"
-  export CLIENTS_TO_REMOVE=(teku lighthouse prysm nimbus)
   ;;
 "nimbus-gnosis.dnp.dappnode.eth")
   ETH2_CLIENT_DNS="beacon-validator.nimbus-gnosis.dappnode"
-  export BEACON_NODE_API="http://beacon-validator.nimbus-gnosis.dappnode:4500"
-  export CLIENT_API="http://beacon-validator.nimbus-gnosis.dappnode:3500"
-  export TOKEN_FILE="/security/nimbus/auth-token"
-  export CLIENTS_TO_REMOVE=(teku lighthouse prysm lodestar)
   ;;
 *)
   echo "_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS env is not set properly"
@@ -69,7 +49,7 @@ exec /opt/web3signer/bin/web3signer \
   --metrics-host-allowlist="*" \
   --idle-connection-timeout-seconds=900 \
   eth2 \
-  --network=gnosis \
+  --network=${NETWORK} \
   --Xnetwork-capella-fork-epoch=648704 \
   --slashing-protection-db-url=jdbc:postgresql://postgres.web3signer-gnosis.dappnode:5432/web3signer-gnosis \
   --slashing-protection-db-username=postgres \
