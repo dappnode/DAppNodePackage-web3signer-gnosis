@@ -1,16 +1,16 @@
 version: "3.8"
 services:
   brain:
-    image: "brain.web3signer-gnosis.dnp.dappnode.eth:1.0.8"
+    image: brain.web3signer-gnosis.dnp.dappnode.eth:1.0.8
     build:
       context: brain
     environment:
       - LOG_LEVEL=debug
     restart: unless-stopped
     volumes:
-      - "brain_data:/app/data"
+      - brain_data:/app/data
   web3signer:
-    image: "web3signer.web3signer-gnosis.dnp.dappnode.eth:1.0.8"
+    image: web3signer.web3signer-gnosis.dnp.dappnode.eth:1.0.8
     healthcheck:
       test: >-
         curl -H 'Host: web3signer.web3signer-gnosis.dappnode'
@@ -22,32 +22,32 @@ services:
       flyway:
         condition: service_completed_successfully
     security_opt:
-      - "seccomp:unconfined"
+      - seccomp:unconfined
     build:
       context: web3signer
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 24.2.0
+        UPSTREAM_VERSION: 24.12.0
     environment:
       JAVA_OPTS: "-Xmx6g"
       EXTRA_OPTS: ""
       WEB3SIGNER_VERTX_WORKER_POOL_SIZE: "20"
     volumes:
-      - "web3signer_data:/data"
+      - web3signer_data:/data
     restart: unless-stopped
   flyway:
     build:
       context: flyway
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 24.2.0
+        UPSTREAM_VERSION: 24.12.0
     depends_on:
       postgres:
         condition: service_started
-    image: "flyway.web3signer-gnosis.dnp.dappnode.eth:1.0.8"
+    image: flyway.web3signer-gnosis.dnp.dappnode.eth:1.0.8
     restart: on-failure
   postgres:
-    image: "postgres.web3signer-gnosis.dnp.dappnode.eth:1.0.8"
+    image: postgres.web3signer-gnosis.dnp.dappnode.eth:1.0.8
     healthcheck:
       test: pg_isready -U postgres
       interval: 5s
@@ -57,10 +57,10 @@ services:
       context: postgres
       dockerfile: Dockerfile
       args:
-        UPSTREAM_VERSION: 24.2.0
+        UPSTREAM_VERSION: 24.12.0
     user: postgres
     volumes:
-      - "postgres_data:/var/lib/postgresql/data"
+      - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 volumes:
   brain_data: {}
