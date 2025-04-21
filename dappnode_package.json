@@ -1,7 +1,7 @@
 {
   "name": "web3signer-gnosis.dnp.dappnode.eth",
   "version": "1.0.12",
-  "upstreamVersion": "24.12.0",
+  "upstreamVersion": "25.3.0",
   "architectures": ["linux/amd64"],
   "upstreamRepo": "ConsenSys/web3signer",
   "mainService": "web3signer",
