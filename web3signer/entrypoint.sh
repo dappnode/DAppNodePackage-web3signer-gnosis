@@ -2,7 +2,7 @@
 
 export KEYFILES_DIR="/data/keyfiles"
 export NETWORK="gnosis"
-export WEB3SIGNER_API="http://web3signer.web3signer-${NETWORK}.dappnode:9000"
+export WEB3SIGNER_API="http:/signer.${NETWORK}.dncore.dappnode:9000"
 
 # Assign proper value to _DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS. The UI uses the web3signer domain in the Header "Host"
 case "$_DAPPNODE_GLOBAL_CONSENSUS_CLIENT_GNOSIS" in
