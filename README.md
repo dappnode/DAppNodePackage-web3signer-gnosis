@@ -1,3 +1,6 @@
+> ⚠️ **DEPRECATION NOTICE:**  
+> This package is deprecated. Please use the generic package instead: <a href="https://github.com/dappnode/DAppNodePackage-web3signer-generic">@dappnode/DAppNodePackage-web3signer-generic</a>
+
 <!-- :female_detective: Looking for a new champion -->
 
 # DAppNode package _Web3signer_
